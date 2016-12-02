@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#A{background-color: red;width:700px;height:700px;}
+	#B{background-color: yellow;width:400px;height:400px;}
+	#C{background-color: blue;width:200px;height:200px;}
+	</style>
+</head>
+<body>
+	<div id="A">
+		
+		<div id="B">
+			
+			<div id="C">
+				
+			</div>
+
+	</div>
+
+</div>
+<script>
+		var oa=document.querySelector("#A");
+		var ob=document.querySelector("#B");
+		var oc=document.querySelector("#C");
+		var O=oa.parentNode;
+O.onclick=function(event){
+	alert(event.target.id);
+
+}
+
+</script>
+</body>
+</html>

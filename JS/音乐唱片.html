@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5</title>
+	<style>
+	
+	article{
+		width:600px;
+		height:600px;
+		margin:0 auto;
+		border:2px solid white;
+		background-color: #f1f1f1;
+
+	}
+	#box{position:relative;
+		width:300px;
+		height:300px;
+		border-radius: 50%;
+		background-color: #fff;
+		margin:auto;
+		top:50%;right:0;left:0;
+		transform:translateY(-50%);
+		border: 10px solid white;
+		box-shadow:0px 0px 8px #aaa;
+	}
+	#m_box{
+		background:url("image/1.jpg") no-repeat center;
+		width:300px;
+		height:300px;
+		border-radius: 50%;
+		background-size:contain;
+		animation:turn 5.0s infinite linear;
+		animation-play-state:paused;
+
+		
+	}
+	@keyframes turn{
+		from{
+			transform-origin:center;
+		    transform:rotate(0deg);
+		}
+		to{
+			transform-origin:center;
+		    transform:rotate(360deg);
+		}
+	}
+
+	#buttom{
+		position:absolute;
+		width:50px;
+		height:50px;
+		border-radius: 50%;
+		background-color: #ccc;
+		top:50%;left:50%;
+		border:5px solid white;
+		
+		transition:transform .5s ease-in-out;
+		transform:translate(-50%,-50%);
+		box-shadow:0px 0px 8px #555;
+	}
+	#buttom:hover{
+		transform-origin:center;
+		transform:scale(1.1) translate(-50%,-50%);
+	}
+	</style>
+	<link rel="stylesheet" href="css/voiceBar.css">
+</head>
+<body>
+	
+	<article>
+		<div id="box">
+			<div id="m_box"><div id="buttom"></div></div>
+		<audio src="video/music.mp3" width="960px"  id="music" loop></audio>
+		</div>
+		<div class="voice_box_width" style="top:40%;left:53%">
+		<div class="voice_line_width"><div class="voice_ball_width"></div></div>
+	
+	</div>
+	
+	</article>
+	
+	<script>
+	var oBtn=document.getElementById("buttom");
+	var oPad=document.getElementById("m_box");
+	var oMusic=document.getElementById("music");
+	var onoff=0;
+	oBtn.onclick=function(){
+		if(!onoff){
+		oPad.style="animation-play-state:running;";
+			onoff=1;
+			oMusic.play();
+		}
+		else{
+			oPad.style="animation-play-state:paused;";
+			onoff=0;
+			oMusic.pause();
+		}
+	}
+	</script>
+	<script src="script/voiceBar.js"></script>
+</body>
+</html>

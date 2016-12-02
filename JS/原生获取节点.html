@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="txt">
+	<input type="button"id="btn"value="添加">
+	
+	<ul id="UL">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>	
+	<script>
+	 var Otxt=document.querySelector("#txt");
+	 var Obtn=document.querySelector("#btn");
+	 var Oul=document.querySelector("#UL");
+	 var aLi=Oul.children;
+	 var num=aLi.length;
+	 Obtn.onclick=function(){
+	 	var Oli=document.createElement("li");
+	 	var value=Otxt.value;
+	 	var txt=document.createTextNode(value);
+	 	Oli.appendChild(txt);
+	 	Oul.appendChild(Oli);
+	 	num++;
+	 }
+	 
+   
+    	Oul.onclick=function(event){
+
+    	Oul.removeChild(event.target);
+    	
+
+
+    }
+	</script>
+</body>
+</html>

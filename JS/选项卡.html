@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+</head>
+<style>
+   *{
+   	margin:0;padding:0;
+   }
+   html,body{
+   	width:100%;height:100%;
+   }
+   .box{
+   	width:10%;
+   	height:50%;
+   	border:5px solid #666;
+   	position:relative;
+   	left:50%;top:50%;
+   	transform:translate(-50%,-50%);
+   	border-radius: 5px;
+
+   }
+   .tag li{
+   	float:left;
+   	font-size: 20px;
+   	color:black;
+   	margin-left: 10px;
+   	border:5px solid #ccc; 
+   	border-radius: 5px;
+   }
+   .tag::after{
+   	content:"";
+   	display:block;
+   	clear:both;
+   }
+   li{
+   	list-style: none;
+   }
+   span{
+   	width:20px;
+   	height:20px;
+   	color:white;
+   	text-align: center;
+   	line-height: 20px;
+   	margin-right: 5px;
+   	margin-top: 5px;
+   	display: inline-block;
+   	background-color: #666;
+   }
+   .content{
+   	position: relative;
+
+   }
+   .Ul{
+   	display:none;
+
+
+   }
+   .Ul li{
+   	display:block;
+   	width:140px;
+   }
+</style>
+<body>
+ <div class="box">
+ 	<div class="tag">
+ 		<ul>
+ 			<li>手游排行榜</li>
+ 			<li>页游排行榜</li>
+ 			<li>一周热门榜</li>
+ 		</ul>
+ 	</div>
+ 	<div class="clear"></div>
+ 	<div class="content">
+ 	<ul  class="Ul">
+ 		<li><span>1</span>王者荣耀</li>
+ 		<li><span>2</span>阴阳师</li>
+ 		<li><span>3</span>天下手游</li>
+ 		<li><span>4</span>HIT:我守护的一切</li>
+ 		<li><span>5</span>问道手游</li>
+ 		<li><span>6</span>梦幻西游</li>
+ 		<li><span>7</span>诛仙手游</li>
+ 		<li><span>8</span>倩女幽魂</li>
+ 		<li><span>9</span>梦幻西游无双版</li>
+ 	</ul>
+ 	
+ 	<ul class="Ul">
+ 		<li><span>1</span>大唐盛世</li>
+ 		<li><span>2</span>篮球之路</li>
+ 		<li><span>3</span>激斗三国</li>
+ 		<li><span>4</span>乾坤战纪</li>
+ 		<li><span>5</span>啸剑星尘</li>
+ 		<li><span>6</span>乐蜀三国</li>
+ 		
+ 	</ul>
+ 	
+ 	<ul class="Ul">
+ 		<li><span>1</span>英雄联盟</li>
+ 		<li><span>2</span>地下城与勇士</li>
+ 		<li><span>3</span>梦幻西游</li>
+ 		<li><span>4</span>魔兽世界</li>
+ 		<li><span>5</span>守望先锋</li>
+ 		<li><span>6</span>剑网3</li>
+ 		
+ 	</ul>
+ 	</div>
+ </div>
+ <script>
+ var oTag=document.getElementsByClassName("tag")[0];
+ var oTagLi=oTag.getElementsByTagName("li");
+ var oUl=document.getElementsByClassName("Ul");
+
+ var list_show=0;
+ var onShow_Li=null;
+
+ Display(list_show,1);
+
+function Display(list_number,type){
+ 	if(type===1){
+ 	oUl[list_number].style.display="block";}
+ 	else{
+ 	oUl[list_number].style.display="none";}
+ }
+//控制内容的展示
+oTag.onmouseover=function(event){
+ 	if(event.target.tagName==="LI"){
+ 	var index=getIndex(event.target);
+ 	Display(list_show,0);
+ 	list_show=index;
+ 	Display(list_show,1);
+ 	}
+ }
+//选项卡控制内容展示
+for(var i=0;i<oUl.length;i++){
+ 	fn(oUl[i]);
+ }
+function fn(obj){
+ 	var oList=obj.getElementsByTagName("li");
+ 	for(var i=0;i<oList.length;i++){
+ 		/*console.log(oList[i]);*/
+ 		change(oList[i]);
+ 		
+ 	}
+ }
+function change(obj){
+ 	obj.onmouseover=function(){
+ 		if(onShow_Li!=null){
+ 		onShow_Li.style["height"]="";
+ 		onShow_Li.style["font-size"]="";
+ 		onShow_Li.style["color"]="";
+ 		onShow_Li.style["background-color"]="";}
+ 		obj.style["height"]="60px";
+ 		obj.style["font-size"]="27px";
+ 		obj.style["color"]="#333";
+ 		obj.style["background-color"]="#ccc";
+ 		onShow_Li=obj;
+ 	}
+ }
+//鼠标移入内容里的特效
+function getIndex(obj){
+ 	var parent=obj.parentNode;
+ 	var children=parent.children;
+ 	for(var i=0;i<children.length;i++){
+ 		if(children[i]===obj){
+ 			return i;
+ 		}
+ 	}
+}//获取索引值
+ </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转导航</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	.nav-ctrl{
+	
+     width:500px;
+     height:500px;
+     margin-left:500px;
+     margin-top:500px;
+	}	
+	.box{
+		width:80px;
+		height:80px;
+		color:white;
+		margin-top: 10px;	
+		text-align:center;
+		transition:transform .3s ease-in-out;
+		border-radius: 5%;
+		
+	}
+	.box_1{	
+		position:relative;	
+		overflow:hidden; 
+		background: #B8CFE0;
+		font-size:30px;
+	}
+	.box p{
+		display: inline-block;
+		line-height:80px;
+		
+	}
+	.box_2{
+		background-color: #12233C;
+		position:absolute;
+		font-size:20px;
+		top:-10px;
+		transform-origin:0 100%;
+		transform:rotate(90deg);
+
+
+	}
+	.box_1:hover>.box_2{
+		transform:rotate(0deg);
+	}
+	</style>
+	
+</head>
+<body>
+	<div class="nav-ctrl">
+		<div class="box box_1">
+			<p>Q</p>
+			<div class="box box_2">
+			<p>QQ</p>
+			</div>
+		</div>
+		<div class="box box_1">
+			<p>微</p>
+			<div class="box box_2">
+			<p>微信</p>
+			</div>
+		</div>
+		<div class="box box_1">
+			<p>享</p>
+			<div class="box box_2">
+			<p>分享</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

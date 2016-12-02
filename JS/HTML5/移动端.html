@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+
+
+	<title>PhoneWeb</title>
+</head>
+<style>
+*{
+	margin:0;padding:0;
+}
+
+	#nav{
+		position:relative;
+		background-color: #50bbdb;
+		width:6.40rem;
+		height:0.88rem;
+	}
+	.font {
+		position:absolute;
+		
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+		font-size:0.18rem;
+		font-family: "微软雅黑";
+		line-height: 0.18rem;
+		text-align: center;
+		color:#fff;
+	}
+	.font h1{ 
+		font-weight: normal;
+		font-size:0.28rem;
+		font-family: "微软雅黑";
+		line-height: 0.28rem;
+	}
+	.turn{
+		position: absolute;
+ 		height:0.56rem;
+		left:0.3rem;
+		margin:auto;
+		top:0;bottom:0;
+ 		
+	}
+	.icon{
+		position: absolute;
+		width:0.52rem;
+		right:0.12rem;
+		margin:auto;
+		top:0;bottom:0;
+
+	}
+	#content{
+		background-color: #f1f1f1;
+		width:6.40rem;
+		height:7.33rem;
+		font-size: 0.2rem;
+		overflow: auto;
+	}
+	#content h1{
+		font-size: 0.24rem;
+
+	}
+	#content h3{
+		font-size: 0.24rem;
+		font-weight: normal;
+
+	}
+	.price{
+		position: absolute;
+		width:1.2rem;
+		height:0.4rem;
+		
+		color:red;
+		font-size: 0.18rem;
+		left:3.23rem;
+		display:inline-block;
+
+		
+	}
+	.num{
+		
+		font-size: 0.28rem;
+	}
+	.conF img{
+		width:1.80rem;
+		height:1.67rem;
+
+	}
+	.conF{
+		position: relative;
+		width:1.80rem;
+		height:1.67rem;
+		display: inline-block;
+		float:left;
+		margin-bottom: 0.14rem;
+		margin-top: 0.02rem;
+	}
+	.travelTime{
+		width:1.80rem;
+		height:0.3rem;
+		background-color: rgba(0,0,0,0.5);
+		color:white;
+		text-align: center;
+
+		position: absolute;
+		bottom: 0;
+	}
+	.travelTime p{
+		 
+		line-height: 0.3rem;
+	}
+	.conR{
+		position:relative;
+		width:4.60rem;
+		height:1.67rem;
+		display: inline-block;
+		margin-bottom: 0.14rem;
+		margin-top: 0.02rem;
+		background-color: #fff;
+
+	}
+	.article{
+		position:absolute;
+		left:0.16rem;
+		top:0.12rem;
+		line-height: 0.18rem;
+
+	}
+	.article h1{
+		line-height: 0.2rem;
+		
+	}
+	.article h3{
+		line-height: 0.2rem;
+		
+	}
+	.article p{
+		line-height: 0.18rem;
+		color:#999;
+		
+	}
+	.message {
+		position:absolute;
+		bottom:0.06rem;
+		top:1.26rem;
+		left:0.16rem;
+	}
+	.message img{
+		position: absolute;
+		bottom:0rem;
+	}
+	.message>p{
+		position: absolute;
+		width:2.88rem;
+		bottom:0rem;
+		left:0.37rem;
+	}
+	
+	#downnav{
+		position:relative;
+		width:6.40rem;
+		background-color: #fff;
+		height:1rem;
+		position:fixed;
+		bottom:0;
+		font-size: 0.2rem;
+		color:#333;
+	}
+	#downnave img{
+		width:0.5rem;
+		height:0.5rem;
+	}
+	.home{
+		width:1.65rem;
+		height:0.9rem;
+		
+		display:inline-block;
+		margin-left:0.3rem;
+		margin-top:0.11rem;
+		
+	}
+	#downnav p{
+		position:absolute;
+		top:0.7rem;
+		margin-left:-0.09rem;
+	}
+	.date{
+		width:1.65rem;
+		height:0.9rem;
+		
+		display:inline-block;
+		margin-top:0.11rem;
+		
+	}
+	.time{
+		width:1.65rem;
+		height:0.9rem;
+		
+		display:inline-block;
+		margin-top:0.11rem;
+		
+	}
+	.control{
+		width:0.8rem;
+		height:0.9rem;
+		
+		display:inline-block;
+		margin-top:0.11rem;
+		
+	}
+</style>
+<body>
+	<div id="nav">
+		 <a href="#"><img src="images/turn.png" alt="" class="turn"></a> 
+		<div class="font"><h1>南京 产品推荐</h1><br/>
+		<p >123个产品推荐</p></div>
+		 <a href="#"><img src="images/icon.png" alt="" class="icon"></a> 
+		
+	</div>
+	<div id="content">
+		<div class="conF">
+			<a href="#"><img src="images/bg_1.png" alt=""></a>
+			<div class="travelTime"><p>2016-02-08出发</p></div>
+		</div>
+		<div class="conR">
+			<div class="article">
+				<h1><阿尔山童话世界冰雪温泉之旅>6天行程</h1><br/>
+				<h3>线路：南京—乌兰浩特—阿尔山—白狼村</h3><br/>
+				<p>冰雪阿尔山，欢乐过大年</p>
+			</div>
+			<div class="message">
+			<img src="images/icon_2.png" alt=""><p>探索者旅行俱乐部</p>
+			<div class="price">¥<span class="num">3600起</span></div>
+			</div>					
+		</div>
+		<div class="conF">
+			<a href="#"><img src="images/bg_2.png" alt=""></a>
+			<div class="travelTime"><p>2016-02-01出发</p></div>
+		</div>
+		<div class="conR">
+			<div class="article">
+				<h1><海天佛国 普陀山祈福之旅>3天行程</h1><br/>
+				<h3>线路：南京—朱家尖—普陀山—宁波</h3><br/>
+				<p>海天佛国，南海圣境</p>
+			</div>
+			<div class="message">
+			<img src="images/icon_2.png" alt=""><p>中国自驾游联盟南京站</p>
+			<div class="price">¥<span class="num">1280起</span></div>
+			</div>	
+		</div>
+		<div class="conF">
+			<a href="#"><img src="images/bg_3.png" alt=""></a>
+			<div class="travelTime"><p>2016-02-08出发</p></div>
+		</div>
+		<div class="conR">
+			<div class="article">
+				<h1><玩转广西自驾12日游>12天行程</h1><br/>
+				<h3>线路：南京—桂林—凭祥—北海—阳朔</h3><br/>
+				<p>尽情领略广西风光，深入体验中越边关风采。</p>
+			</div>
+			<div class="message">
+			<img src="images/icon_2.png" alt=""><p>中国自驾游联盟南京站</p>
+			<div class="price">¥<span class="num">4680起</span></div>
+			</div>	
+		</div>
+		<div class="conF">
+			<a href="#"><img src="images/bg_4.png" alt=""></a>
+			<div class="travelTime"><p>2016-02-08出发</p></div>
+		</div>
+		<div class="conR">
+			<div class="article">
+				<h1><黔东南深度名俗体验之旅>12天行程</h1><br/>
+				<h3>线路：南京—西江—黄果树—荔波—桂林</h3><br/>
+				<p>冰雪阿尔山，欢乐过大年</p>
+			</div>
+			<div class="message">
+			<img src="images/icon_2.png" alt=""><p>中国自驾游联盟南京站</p>
+			<div class="price">¥<span class="num">4580起</span></div>
+			</div>	
+		</div>
+	</div>
+	<div id="downnav">
+		<div class="home">
+			<img src="images/home.png" alt="">
+			<p>出发城市</p>
+		</div>
+		<div class="date">
+			<img src="images/date.png" alt="">
+			<p>行程天数</p>
+		</div>
+		<div class="time">
+			<img src="images/time.png" alt="">
+			<p>出行时间</p>
+		</div>
+		<div class="control">
+			<img src="images/control.png" alt="">
+			<p>推荐排序</p>
+		</div>
+		
+	</div>
+	<script src="script/fontSizeSet.js"></script>
+	<script>
+		</script>
+</body>
+</html>

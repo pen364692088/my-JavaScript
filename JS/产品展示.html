@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>showProduct</title>
+	<style>
+	*{margin:0;padding:0;}
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	.box{
+		width:500px;
+		height:200px;
+		border:1px solid red;
+		position: relative;
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+	}
+	ul,li{
+		list-style: none;
+	}
+	.nav{
+		width:10%;
+		height:100%;
+		display: inline-block;
+	}
+	.Ul{position: relative;
+		width:100%;
+		height:100%;
+	}
+	.Ul li{
+		
+		width:100%;
+		height:32%;
+		background-color: #ccc;
+		margin-top: 1px;
+		font-size: 20px;
+		border:1px solid red;
+		display:block;
+	}
+	.content{
+		display:inline-block;
+		width:0%;
+		height:100%;
+		background-color: #ccc;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="nav">
+			<ul class="Ul">
+				<li><p>美白佳品</p></li>
+				<li><p>淘宝热卖</p></li>
+				<li><p>今日热销</p></li>		
+			</ul>
+		</div><div class="content">
+		<div class="content_1"><img src="" alt="">
+			<ul>
+			<li class="listIn">墙纸</li>
+			<li class="listIn">行车记录仪</li>
+			<li class="listIn">新款男鞋</li>
+			</ul>
+		</div>
+		<div class="content_2">
+			<img src="" alt="">
+			<ul>
+			<li class="listIn">时尚女鞋</li>
+			<li class="listIn">短裤半身裙</li>
+			<li class="listIn">男士外套</li>
+		</ul>
+		</div>
+		<div class="content_3">
+			<img src="" alt="">
+			<ul>
+			<li class="listIn">新款连衣裙</li>
+			<li class="listIn">四件套</li>
+			<li class="listIn">潮流T恤</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+	/*var oListOut=document.getElementsByClassName("listOut");
+	var oUl=document.getElementsByClassName("Ul")[0];
+	var num=0;
+	var oldShow=oListOut[0];
+	function listShow(obj,num){
+		if(num){
+		var img=obj.getElementsByTagName("img")[0];
+		var listIn=obj.getElementsByTagName("ul")[0];
+		img.style["visibility"]="visible";
+		listIn.style["visibility"]="visible";}
+		else{
+			var img=obj.getElementsByTagName("img")[0];
+			var listIn=obj.getElementsByTagName("ul")[0];
+			img.style["visibility"]="hidden";
+			listIn.style["visibility"]="hidden";
+
+		}
+	}
+	listShow(oListOut[0],1);
+	for(var i=0;i<oListOut.length;i++){
+		oListOut[i].onclick=function(event){
+			if(this==event.target){
+			console.log(event.target);
+			var index=getIndex(event.target,1);
+			
+		}else{
+			var index=getIndex(event.target,0);
+			console.log(event.target);
+			
+			}
+			listShow(oListOut[index],1);
+			listShow(oldShow,0);
+			oldShow=this;
+
+		}
+	}
+	
+	function getIndex(obj,num){
+		if(num)
+		{
+		var parent=obj.parentNode;
+		var children=parent.children;
+		for(var i=0;i<children.length;i++){
+			if(children[i]===obj){
+				return i;
+			}
+		}
+	}else{
+		var grandFather=obj.parentNode.parentNode;
+		var fater=obj.parentNode;
+		var children=grandFather.children;
+		for(var i=0;i<children.length;i++){
+			if(children[i]===fater){
+				return i;
+			}
+		}
+	}
+	}
+*/
+
+	</script>
+</body>
+</html>

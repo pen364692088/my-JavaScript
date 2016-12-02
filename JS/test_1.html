@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	#test{
+		border:2px solid blue;
+		width:50px;
+		height:30px;
+	}
+	.content{
+		border:0px solid red;
+		width:50px;
+		height:0px;
+		transition:height .7s ease-in-out;
+		background-color: red;
+		overflow: hidden;
+	}
+	.show{
+		height:80px;
+	}
+	.hidden{
+		height:0px;
+	}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<p id="test">分享</p>
+		<ul class="content">
+			<li>QQ</li>
+			<li>微信</li>
+			<li>浏览器</li>
+		</ul>
+	</div>
+	<script>
+	var oCont=document.getElementsByClassName("content");
+	var oTest=document.getElementById("test");
+	oTest.onmouseover=function(){
+		oCont[0].className="content"+" "+"show";
+	}
+	oTest.onmouseleave=function(){
+		oCont[0].className="content"+" "+"hidden";
+	}
+	</script>
+</body>
+</html>

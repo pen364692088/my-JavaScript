@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多组图片切换</title>
+</head>
+<style>
+	body,html{
+		width:100%;height:100%;
+	}
+	#first_box,#second_box{
+		position: relative;
+		top:50%;float:left;
+		border:5px solid #ccc;
+		transform:translateY(-50%);
+	}
+	#first_box p,#second_box p{
+			position: absolute;
+			bottom:1%;
+			text-align: center;
+			margin:auto;
+			left:0;right:0;
+	}
+	#first_box{
+		left:10%;
+		width:40%;height:50%;
+		
+	}
+	#second_box{
+		left:10%;
+		width:30%;height:50%;
+		
+	}
+	.turn_left,.turn_right{
+		position: absolute;
+		width:40px;height:40px;
+		background-color: #666;
+		border-radius: 50%;
+		color:white;
+		font-size: 30px;
+		line-height: 40px;
+		text-align: center;
+		top:50%;
+		transform:translateY(-50%);
+		z-index: 5;
+		box-shadow:0px 0px 2px #000;
+	}
+	.turn_left{
+
+		left:1%;
+	}
+	.turn_right{
+		right:1%;
+	}
+	
+	.box{
+		position: absolute;
+		width:80%;height:80%;
+        left:50%;top:50%;
+        transform:translate(-50%,-50%);
+        border-radius: 5%;
+        text-align: center;
+	}
+	.box img{
+		width:100%;height:100%;
+		background-color: #e6e6e6;
+
+	}
+	#up,#down{
+		font-size: 25px;
+		color:white;
+		position: absolute;
+		top:18%;left:10%;
+		transform:translateY(-50%);
+		width:100px;height:40px;line-height: 40px;text-align: center;
+		background-color:rgba(0,0,0,0.3);
+	}
+	#down{
+		margin-left:110px;
+	}
+</style>
+<body>
+	<p id="up">上一组</p>
+	<p id="down">下一组</p>
+	<div id="first_box">
+		
+		<div class="turn_left"><</div>
+		<div class="turn_right">></div>
+		<div class="box">图片正在加载....</div>
+		<p>1/4</p>
+	</div>
+	<div id="second_box">
+		<div class="turn_left"><</div>
+		<div class="turn_right">></div>
+		<div class="box">图片正在加载....</div>
+		<p>1/3</p>
+	</div>
+	<script>
+    var oBox=document.getElementsByClassName("box");
+    var oLeft=document.getElementsByClassName("turn_left");
+    var oRight=document.getElementsByClassName("turn_right");
+    var F_box=document.getElementById("first_box");
+    var S_box=document.getElementById("second_box");
+    var oUp=document.getElementById("up");
+    var oDown=document.getElementById("down");
+    var aP_1=F_box.getElementsByTagName("p")[0];
+    var aP_2=S_box.getElementsByTagName("p")[0];
+
+    var img_1=["image/img_1.jpg","image/img_2.jpg","image/img_3.jpg","image/img_4.jpg","image/img_5.jpg","image/img_6.jpg"];
+    var img_2=["image/other_1.jpg","image/other_2.jpg","image/other_3.jpg"];
+    var num_1=1;
+    var num_2=1;
+
+    function update(){
+    if(num_1===0){
+	    			num_1=img_1.length;
+	}
+	if(num_2===0){
+	    			num_2=img_2.length;
+	}
+	if(num_1===img_1.length+1){
+	    			num_1=1;
+	}
+	if(num_2===img_2.length+1){
+	    			num_2=1;
+	}
+    aP_1.innerHTML=num_1+"/"+ img_1.length;
+    aP_2.innerHTML=num_2+"/"+ img_2.length;
+    oBox[0].innerHTML= "<img src="+img_1[num_1-1]+">";
+    oBox[1].innerHTML= "<img src="+img_2[num_2-1]+">";
+    }
+    update();
+
+    function DOWN(obj){
+    	if(!obj.index){
+    			num_1--;
+   	    		update();
+    		}
+    		else{
+    			num_2--;    				    		
+	    		update();
+    	}
+	}
+    function upup(obj){
+    	if(!obj.index){
+	    		num_1++;	    			    		
+	    		update();
+	    	}
+	    		else{
+	    		num_2++;					    		
+	    		update();
+	    	}
+    }
+    for(var i=0;i<oBox.length;i++){
+    	oBox[i].index=i;
+    	oBox[i].onclick=function(){
+    		 DOWN(this);
+    		}
+    }
+    
+    for(var i=0;i<oLeft.length;i++){
+	    oLeft[i].index=i;
+	    oLeft[i].onclick=function(){
+	    		DOWN(this);
+	    }	
+	}
+    for(var i=0;i<oRight.length;i++){
+    	oRight[i].index=i;
+    	oRight[i].onclick=function(){
+				upup(this);
+	       }
+    }
+    oUp.onclick=function(){
+    	num_1--;
+    	num_2--;
+    	update();
+    }
+    oDown.onclick=function(){
+    	num_1++;
+    	num_2++;
+    	update();
+    }
+	</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片导航和缩略图</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	html{
+		width:100%;
+		height:100%;
+	}
+	body{
+		width:100%;
+		height:100%;
+		background:url(image/img_1.jpg) no-repeat center center;
+		background-size: contain;
+	}
+	#big_box{
+		position: relative;
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+		background: rgba(255,255,255,0.3)  no-repeat center;
+		width:1200px;height:600px;
+		border-radius: 5px;
+		background-image:url(image/img_2.jpg);
+		background-size:contain;
+		box-shadow: 0px 0px 8px #000;
+
+	}
+	#big_box p{
+		position: absolute;
+		top:-40px;
+		font-size: 30px;
+		height: 40px;
+		width:500px;
+		text-align: center;
+		color:#fff; 
+		background-color: #666;
+		border-radius: 5px;
+		box-shadow: 0px 0px 8px #000;
+
+	}
+	li,ul{
+		list-style:none;
+	}
+	li{ position: relative;
+		border:5px solid #aaa;
+		border-radius: 50%;
+		width:30px;height:30px;
+		background-color: #ccc;
+		float: left;
+		margin-left: 10px;
+		box-shadow: 0px 0px 8px #000;
+	}
+	li img{position:absolute;
+			top:-120px;left:-100%;margin-left:-50px;
+			width:150px;
+			border:8px solid #fff;
+			box-shadow: 0px 0px 8px #000;
+			display: none;
+	}
+	ul{
+		position: absolute;
+		bottom:-60px;
+		left:50%;
+		transform:translateX(-50%);
+	}
+	.turn_left,.turn_right{
+		position: absolute;
+		width:50px;height:50px;border-radius: 50%;
+		background-color:#FCFDDA;
+		font-size:40px;line-height: 50px;
+		text-align: center;
+		box-shadow: 0px 0px 8px  #000;
+		transform:translateY(-50%);
+		top:50%;
+	}
+	.turn_left{
+
+		left:5px;
+		
+	}
+	.turn_right{
+		
+		right:5px;
+	}
+	</style>
+</head>
+<body>
+	
+	<div id="big_box">
+	<p>带缩略图的图片导航</p>
+	<div class="turn_left"><</div>
+	<div class="turn_right">></div>
+		<ul id="Ul">
+			<li><img src="image/img_2.jpg" alt=""></li>
+			<li><img src="image/img_3.jpg" alt=""></li>
+			<li><img src="image/img_4.jpg" alt=""></li>
+			<li><img src="image/img_5.jpg" alt=""></li>
+			<li><img src="image/img_6.jpg" alt=""></li>
+		</ul>
+	</div>
+	<script>
+    var oUl=document.getElementById("Ul");
+    var oLeft=document.getElementsByClassName("turn_left")[0];
+    var oRight=document.getElementsByClassName("turn_right")[0];
+    var oBox=document.getElementById("big_box");
+    var aLi=oUl.getElementsByTagName("li");
+
+
+    var oImg=["image/img_2.jpg","image/img_3.jpg","image/img_4.jpg","image/img_5.jpg","image/img_6.jpg"];
+    var num=0;
+    var mouseNum=null;
+
+    for(var i=0;i<aLi.length;i++){
+    	aLi[i].onclick=function(){
+    		num=getIndex(this);
+    		ChangeImg();
+    	}
+    }
+    function ChangeImg(){
+    	oBox.style["background-image"]="url("+oImg[num]+")";
+    }
+    oLeft.onclick=function(){
+    	if(num){
+    	num-=1;}
+    	else{
+    		num=oImg.length-1;
+    	}
+    	ChangeImg();
+    }
+     oRight.onclick=function(){
+    	if(num<oImg.length-1){
+    	num+=1;}
+    	else{
+    		num=0;
+    	}
+    	ChangeImg();
+    }
+    oUl.onmouseover=function(event){
+    	/*mouseNum=getIndex(event.target);*/
+    	/*var aSmall=aLi[mouseNum].getElementsByTagName("img")[0];
+    	aSmall.style.display="block";*/
+    	if(event.target.tagName === "LI"){
+    	var aSmall=event.target.getElementsByTagName("img")[0];
+    	aSmall.style.display="block";
+
+    	}
+    }
+     oUl.onmouseout=function(event){
+    	/*mouseNum=getIndex(event.target);
+    	console.log(mouseNum);
+    	var aSmall=aLi[mouseNum].getElementsByTagName("img")[0];*/
+    	
+
+    	var aSmall=event.target.getElementsByTagName("img")[0];
+    	aSmall.style.display="none";
+    	
+
+    }
+    function getIndex(obj){
+    	var parent=obj.parentNode;
+    	var children=parent.children;
+    	for(var i=0;i<children.length;i++){
+    		if(children[i]===obj){
+    			return i;
+    		}
+    	}
+    }
+	</script>
+</body>
+</html>

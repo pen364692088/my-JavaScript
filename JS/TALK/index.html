@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>聊天室</title>
+</head>
+<!-- <link rel="stylesheet" type="text/css" href="css/main.css"> -->
+<style>
+    *{
+    	margin:0;padding:0;
+    }
+    html{
+
+    }
+	#main{
+		width:290px;height:600px;position:absolute;left:50%;top:50%;
+		transform:translate(-50%,-50%);
+		background:#fff url("images/back.png") no-repeat center;
+	}
+	#talk{
+		width:232px;height:360px;background-color: #fff;
+		position:relative;left:28px;top:92px;overflow-y:auto;overflow-x:hidden;
+	}
+	#talkbar img{width:40px;height:40px;border-radius: 5%;
+		transform:translateY(15px);margin-top: -8px;
+	}
+	#talkbar{
+		height:55px;width:236px;
+		position:absolute;bottom:90px;left:26px;background-color: #fff;
+		border:1px solid #bbb;
+	}
+	#content{
+		width:145px;height:40px;
+		border-radius: 6%;
+		border:1px solid #ccc;
+		margin-left: -5px;margin-top: -8px;
+	}
+	#send{
+		width:45px;height:40px;color:#bbb;font-size: 20px;display: inline-block;
+		text-align: center;line-height: 40px;margin-left: -10px;margin-top: -8px;
+	}
+</style>
+<body>
+	<div id="main">
+		<p id="talk">
+			
+		</p>
+		<div id="talkbar">
+			<img src="images/1.jpg" alt="" title="表情" id="img">
+			<input type="text" id="content">
+			<p id="send"><strong>发送</strong></p>
+		</div>
+	</div>
+	<script>
+	var oContent=document.getElementById('content');
+	var oSent=document.getElementById("send");
+	var oImg=document.getElementById("img");
+	var oTalk=document.getElementById("talk");
+	var oSrc=["images/1.jpg","images/2.jpg"];
+	var num=0;
+	var offon=0;
+	oImg.onclick=function(){
+		if(num){
+			num=0;			
+		}else{
+			num=1;			
+		}
+		oImg.src=oSrc[num];
+	}
+	oSent.onclick=function(){
+		if(num){
+			/*offon=0;*/	oTalk.innerHTML+="<div style=\"float:left; \">"+"<img src="+oSrc[num]+" >"+"<p style=\"max-width:170px;border:2px solid #ccc;background-color:#aaa;display:inline-block;border-radius:6%;\" >"+oContent.value+"<br/>"+"</p>"+"</div>"+"<br/>"+"<br/>"+"<br/>"/*"<div style=\"clean:both;\">"+"</div>"*/;		
+		}else{
+			/*offon=1;*/	oTalk.innerHTML+="<div style=\"float:right; \">"+"<img src="+oSrc[num]+" style=\"float:right; \">"+"<p style=\"max-width:165px;border:2px solid #ccc;background-color:#569415;display:inline-block;border-radius:6%;\" >"+oContent.value+"</p>"+"</div>"+"<br/>"+"<br/>"+"<br/>"/*"<div style=\"clean:both;\">"+"</div>"*/ ;		
+		}
+		oContent.value="";
+		
+	}
+	</script>
+</body>
+</html>

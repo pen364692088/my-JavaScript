@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实时编辑</title>
+</head>
+<style>
+	*{
+		margin:0;padding:0;
+	}
+
+	.box img{
+		width:30px;
+		height:30px;
+		float:right;
+	}
+	.box li::after{
+		content:"";
+		display:block;
+		clear:both;
+	}
+	.clear{
+		clear:both;
+	}
+	html,body{
+		width:100%;height:100%;
+	}
+	.box{
+		width:500px;height:500px;
+		position:relative;
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+		border:1px solid #4276C0;
+		border-radius: 10px;
+	}
+	.box li {
+		height:30px;
+		line-height: 30px;
+		list-style: none;
+		margin-left: 20px;
+		margin-top: 5px;
+		font-size: 20px;
+		border-bottom: 1px solid #ccc;
+		width:230px;
+	}
+	.box ul{
+		border-top: 20px solid #4276C0;
+		border-radius: 10px;
+
+	}
+	.input{
+		width:120px;
+	}
+	.sure,.cancel{
+		display: inline-block;
+		width:40px;
+		height:30px;
+		color:white;
+		font-size: 18px;
+		border-radius: 5px;
+		margin-left: 5px;
+	}
+	.sure{
+		
+		background-color: red;
+	}
+	.cancel{
+		
+		background-color: blue;
+	}
+</style>
+<body>
+	<div class="box">
+		<ul id="Ul">
+			<li val="saber">saber<img src="image/pen.png" alt="" title="点击编辑"></li> 
+			<li val="berserker">berserker<img src="image/pen.png" alt="" title="点击编辑"></li>
+			<li val="baidu">baidu<img src="image/pen.png" alt="" title="点击编辑"></li>
+			<li val="baidu">等等<img src="image/pen.png" alt="" title="点击编辑"></li>
+			
+		</ul>
+	</div>
+	<script>
+		var  oUl=document.getElementById("Ul");
+		var aLi=oUl.getElementsByTagName("li");
+		
+		/*var oInput=null;*/
+		/*var obj=null;*/
+		/*var oldObj=null;
+		var oInput=null;
+		var oSure=null;
+		var oCancel=null;
+		var img=null;*/
+		resetfn();
+		function resetfn(){
+				for(var i=0;i<aLi.length;i++){
+				var img=aLi[i].getElementsByTagName("img")[0];
+				if(img){
+				img.onclick= function(){
+				change(this);				
+					};
+					}
+				}
+
+			}//给每个图片绑定点击事件
+		function change(object){
+			
+				var obj=object.parentNode;
+				  //找到父节点方便操作innerHTML
+				
+				var oldString=obj.innerText;  //获取原先文字信息
+
+				into(obj,1,null,oldString);   //刷新编辑框
+				var oInput=obj.getElementsByTagName("input")[0]; //获取新的输入框
+				var oSure=obj.getElementsByTagName("span")[0];	//获取新的确定
+				var oCancel=obj.getElementsByTagName("span")[1];	//获取新的取消
+				oSure.onclick=function(){
+					if(oInput.value==""){
+					into(obj,0,oldString);}
+					else{
+						into(obj,0,oInput.value);
+					}
+					resetfn(); //如果输入不是空,就把输入的值放入,然后重新绑定事件
+				}
+				oCancel.onclick=function(){
+					into(obj,0,oldString);
+					resetfn(); //如果取消,就把以前的值放入,然后重新绑定事件
+				}
+				oInput.onkeydown=function(event){
+					if(event.keyCode==13){	
+					var value=oInput.value;
+					into(obj,0,value);
+					resetfn();
+					}//如果按空格就放入输入的值,然后重新绑定事件
+
+				}
+			}	
+		
+		function into(object,num,val,oldString){
+			switch(num){
+				case 0:object.innerHTML=val+"<img src=\"image/pen.png\" alt=\"\" title=\"点击编辑\">";
+			 		break;
+				case 1:object.innerHTML="<input type=\"text\" class=\"input\" value=\""+oldString+"\"><span class=\"   sure\">确定</span><span class=\"cancel\">取消</span>";
+				   break;
+				   //刷新输入框
+			}
+			
+			
+		}
+		/*function enter(){
+				if(event.keyCode==13){	
+				var value=oInput.value;
+				into(obj,0,value);}
+				}
+		}*/
+		/*function change(obj){
+			obj.innerHTML="<input type=\"text\"><img src=\"image/pen.png\" alt=\"\" title=\"点击编辑\">";
+			var oInput=obj.getElementsByTagName("input");
+			oInput.onkeydown=function(event){
+			if(event.keyCode==13){	
+			var value=oInput.value;
+			obj.innerHTML=value+"<img src=\"image/pen.png\" alt=\"\" title=\"点击编辑\">";}}
+		}*/
+		/*var index=oldString.indexOf("<img");
+				oldString=oldString.substr(0,index);
+				console.log(oldString);	*/
+				/*if(!oldObj){
+					oldObj=obj;
+				}
+				else if(oldObj!=obj){
+						console.log(oldObj);
+						into(oldObj,1,oldString);
+						resetfn();
+						
+				}*/
+
+	</script>
+</body>
+</html>

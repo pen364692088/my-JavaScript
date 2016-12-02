@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义窗体</title>
+	<style type="text/css">
+	*{
+		margin:0;padding:0;
+	}
+	html,body,#background,#center{
+		width:100%;
+		height:100%;
+	}
+	#control{
+		position:absolute;
+		left:50%;top:50%;
+		width:30%;
+		height:30%;
+		background-color: #fff;
+		border:4px solid #ccc;
+		display: none;
+		
+	}
+
+	#background{
+		position:absolute;
+		background-color: #000;
+		opacity:0.6;
+		display: none;
+
+	}
+	.box{
+		width:200px;
+		height:200px;
+		background-color: white;
+		border:3px solid red;
+		margin-left:20px;
+		margin-top:20px;
+		float:left;
+	}
+	#center{
+		
+	}
+	</style>
+
+	<script src="script/jquery.js"></script>
+</head>
+<body>
+	<div id="background"></div>
+	<div id="control">
+		<label for="box_color">背景颜色:</label>
+		<input type="text" id="box_color"><br />
+		<label for="box_width">宽(px):</label>
+		<input type="text" id="box_width"><br />
+		<label for="box_height">高(px):</label>
+		<input type="text" id="box_height"><br />
+		<label for="box_border-width">边框宽度(px):</label>
+		<input type="text" id="box_border-width"><br />
+		<label for="box_border-color">边框颜色(px):</label>
+		<input type="text" id="box_border-color"><br />
+		<input type="button" class="button" value="确定">
+		<input type="button" class="close" value="关闭">
+	</div>
+	<div id="center">
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+	</div>
+
+	<script>
+	window.onload=function(){
+		/*var box_index=[0,0];*/
+		var whatYouClick=null;
+
+		$(".box").dblclick(function(event){
+			var x=event.pageX;
+			var y=event.pageY;
+			whatYouClick=$(this);
+			$("#control").css({"display":"block","left":x+50,"top":y+100});
+			$("#background").css({"display":"block"});
+			/*box_index[0]=$(this).index();
+			box_index[1]=$(parent).index();*/
+			/*var parent=$(this).parentNode;*/
+			console.log(whatYouClick);
+
+		})
+		$(".button").click(function(){
+			var color=$("#box_color").val();
+			var width=$("#box_width").val();
+			var height=$("#box_height").val();
+			var border_width=$("#box_border-width").val();
+			var border_color=$("#box_border-color").val();
+			console.log(color,width,height);
+			/*var children=$("#center").find(".box");
+			console.log(children);*/
+			whatYouClick.css({"background-color":color,
+				"width":width,
+				"height":height,
+				"border-color":border_color,
+				"border-width":border_width});
+
+		})
+		$(".close").click(function(){
+			$("#control").css({"display":"none"});
+			$("#background").css({"display":"none"});
+		})
+
+	}
+	</script>
+</body>
+</html>

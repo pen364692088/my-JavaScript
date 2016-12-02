@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+		
+	
+	#bigBox{
+		position:relative;
+		margin:0 auto;
+		width:200px;
+		height:200px;
+		border:5px solid blue;
+		perspective:800px;
+		transform-style:preserve-3d;
+		transition:transform 1.5s ease-in-out;
+	}
+
+	#box{
+		position:absolute;
+		width:100px;
+		height:100px;
+		left:50%;top:50%;
+
+		background-color: #000;
+		color:white;
+		transform:translate(-50%,-50%);
+		
+	}
+	#box_2{
+		position:absolute;
+		width:100px;
+		height:100px;
+		left:50%;top:50%;
+		color:white;
+		background-color: blue;
+		transform:translateZ(100px) translate(-50%,-50%);
+		
+	}
+	#box_3{
+		position:absolute;
+		width:100px;
+		height:100px;
+		left:50%;top:50%;
+		color:white;
+		background-color:green;
+		transform:rotateY(90deg)  translate(-50%,-50%);
+		
+	}
+	#box_4{
+		position:absolute;
+		width:100px;
+		height:100px;		
+		color:white;
+		left:50%;top:50%;
+		background-color: yellow;
+		transform:rotateY(90deg) translateZ(-100px)  translate(-50%,-50%);
+	}
+	#bigBox:hover{
+		transform:rotateY(360deg);
+	}
+	</style>
+</head>
+<body>
+	<div id="bigBox">
+	<div id="box"><p>
+		你好
+	</p></div>
+	<div id="box_2"><p>
+		你好
+	</p></div>
+	<div id="box_3"><p>
+		你好
+	</p></div>
+	<div id="box_4"><p>
+		你好
+	</p></div>
+	</div>
+	<script>
+	/*var box_2=document.getElementById("box_2");
+	var box=document.getElementById("box");
+	box_2.onclick=function(){
+		box_2.style="transform:rotateY(90deg);";
+		box.style="transform:rotateY(-180deg) ;display:block;";
+	}*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>海盗船</title>
+</head>
+<style>
+	#back{
+		width:1000px;
+		height:auto;
+		margin:0 auto;
+		position:relative;
+		background:url("images/bg.png") no-repeat ;
+		background-size:content;
+		overflow: hidden;
+		
+	}
+	#cloud{
+		position:relative;
+	}
+	.cloud{
+		position:absolute;
+		left:800px;
+		top:90px;
+
+	}
+	.flyball{
+		position:absolute;
+		width:100px;
+		left:700px;
+		top:100px;
+
+
+	}
+	.ship{
+		background:url("images/ship.png") no-repeat;
+		background-size:content;
+		height:550px;
+		animation:ship 5s infinite linear ;
+		position:relative;
+		transform-origin:30% 0%;
+		transition:left 5s ease-in-out;
+		left:0px;
+	}
+	.move{
+		left:500px;
+	}
+	.leave{
+		left:0px;
+	}
+	#sea{
+		width:auto;
+		height:200px;
+		position:relative;
+
+	}
+	.A,.B,.C{
+		position:absolute;
+		left:-100px;
+	}
+	.A{
+		top:-50px;
+		animation:go 3s infinite linear ;
+		z-index:2;
+	}
+	.B{
+		top:0px;
+		animation:go 3s infinite linear 1s;
+		z-index:3;
+	}
+	.C{
+		top:50px;
+		animation:go 3s infinite linear 1.5s;
+		z-index:5;
+	}
+	#play{
+		position:relative;
+		top:-200px;
+	}
+	.scroll_1{
+		position: absolute;
+		top:-70px;
+		left:500px;
+		z-index:1;
+
+	}
+	.scroll_2{
+		position:absolute;
+		top:-30px;
+		left:300px;
+		z-index:2;
+	}
+	.fish{
+		position:absolute;
+		z-index:3;
+		top:5px;
+		animation:fish 9s infinite linear;
+		transform-origin:center 100%;
+	}
+	@keyframes go{
+		0%{
+			transform:translate(0,0);
+		}
+		50%{
+			transform:translateX(50px);
+		}
+		100%{
+			transform:translate(0,0);
+		}
+	}
+	@keyframes ship{
+		0%{	
+			transform:rotate(0deg);
+		}
+		25%{
+			
+			transform:rotate(5deg);
+		}
+		50%{
+			
+			transform:rotate(0deg);
+		}
+		75%{
+			
+			transform:rotate(-5deg);
+		}
+		100%{
+			
+			transform:rotate(0deg);
+		}
+	}
+	@keyframes fish{
+		0%{
+			transform:translate(0) rotate(0deg);
+		}
+		25%{
+			transform:translateX(250px) rotate(20deg);
+		}
+		50%{
+			transform:translateX(500px) rotate(0deg) rotateY(0deg);
+
+		}
+		51%{
+			transform:translateX(490px) rotateY(180deg) ;
+
+		}
+		75%{
+			transform:translateX(250px) rotate(20deg) rotateY(180deg)  ;
+
+		}
+		99%{
+			transform:translateX(10px) rotate(10deg) rotateY(180deg)  ;
+
+		}
+		100%{
+			transform:translateX(0px) rotateY(0deg) rotate(0deg);
+		}
+	}
+</style>
+<body>
+	<div id="back">
+		<div id="cloud">
+			<img src="images/cloud.png" alt="" class="cloud">
+			<img src="images/flyball.png" alt="" class ="flyball">
+		</div>
+		<div class="ship">
+		
+		</div>
+		<div id="sea">
+			<img src="images/wave3.png" alt="" class="A">
+			<img src="images/wave2.png" alt="" class="B">
+			<img src="images/wave1.png" alt="" class="C">
+		</div>
+		<div id="play">
+			<img src="images/fish.png" alt="" class="fish">
+			<img src="images/scroll_1.png" alt="" class="scroll_1">
+			<img src="images/scroll_2.png" alt="" class="scroll_2">
+		</div>
+	</div>
+	<script>
+	var oShip=document.getElementsByClassName("ship");
+	var offon=1;
+	oShip[0].onclick=function(){
+		if(offon){
+			oShip[0].style="left:500px;";
+			offon=0;
+		}
+		else{
+			oShip[0].style="left:0px;";
+			offon=1;
+		}
+		
+	}
+	</script>
+</body>
+</html>

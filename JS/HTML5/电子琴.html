@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Piano</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	html,body{
+		width:100%;height:100%;
+	}
+	.box{
+		position: relative;
+		width:70%;
+		height:70%;
+		/* border:1px solid red; */
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+	}
+	.pianoTag{
+		width:50px;
+		height:200px;
+		background-color:#f1f1f1;
+		border:2px solid #aaa;
+		display: inline-block;
+		position:relative;
+		
+		
+	}
+	.piano{
+		width:70%;
+		height:70%;
+		position:relative;
+		left:50%;top:70%;
+		transform:translate(-50%,-50%);
+	}
+	.piano p{
+		position: absolute;
+		bottom:20px;
+		font-size: 25px;
+		left:0.75em;
+
+	}
+	#ctrl{
+		width:80px;
+		height:50px;
+		margin:0 auto;
+		border:5px solid #aaa;
+		border-radius: 5%;
+		text-align: center;
+		line-height:50px;
+		font-size: 25px;
+	}
+	/* input[type="button"]{
+		width:80px;
+		height:50px;
+	} */
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="piano">
+		<div class="pianoTag"><audio src="raw/c3.ogg" ></audio><p>A</p></div>
+		<div class="pianoTag"><audio src="raw/d3.ogg" ></audio><p>S</p></div>
+		<div class="pianoTag"><audio src="raw/e3.ogg" ></audio><p>D</p></div>
+		<div class="pianoTag"><audio src="raw/f3.ogg" ></audio><p>F</p></div>
+		<div class="pianoTag"><audio src="raw/g3.ogg" ></audio><p>G</p></div>
+		<div class="pianoTag"><audio src="raw/a3.ogg" ></audio><p>H</p></div>
+		<div class="pianoTag"><audio src="raw/b3.ogg" ></audio><p>J</p></div>
+		<div class="pianoTag"><audio src="raw/c4.ogg" ></audio><p>K</p></div>
+		<div class="pianoTag"><audio src="raw/d4.ogg" ></audio><p>L</p></div>
+		<div class="pianoTag"><audio src="raw/e4.ogg" ></audio><p>Z</p></div>
+		<div class="pianoTag"><audio src="raw/f4.ogg" ></audio><p>X</p></div>
+		<div class="pianoTag"><audio src="raw/g4.ogg" ></audio><p>C</p></div>
+		<div class="pianoTag"><audio src="raw/a4.ogg" ></audio><p>V</p></div>
+		<div class="pianoTag"><audio src="raw/b4.ogg" ></audio><p>B</p></div>
+		<div class="pianoTag"><audio src="raw/c5.ogg" ></audio><p>N</p></div>
+		</div>
+	</div>
+	<div id="ctrl"><p>播放</p></div>
+
+	<script>
+	var oMusic=document.getElementsByTagName("audio");
+	/*var oBox=document.getElementsByClassName("box")[0];*/
+	var oCtrl=document.getElementById("ctrl");
+
+	var m_length=oMusic.length;
+	var voice=["65",
+				"83",
+				"68",
+				"70",
+				"71",
+				"72",
+				"74",
+				"75",
+				"76",
+				"90",
+				"88",
+				"67",
+				"86",
+				"66",
+				"78"]
+	
+	/*for(var i=0;i<m_length;i++){
+	oMusic[i].onkeydown=function(){
+
+	}
+	}*/
+	for(var i=0;i<m_length;i++){
+		oMusic[i].voi=voice[i];
+	}
+	oCtrl.onclick=function(){
+				console.log(1);
+	}
+	console.log(oCtrl.onclick)
+		
+	function found(keyCode){
+		for(var i=0;i<m_length;i++){
+			if(oMusic[i].voi==keyCode){
+				return i;
+			}
+		}
+	}
+	function test(keyCode){
+		for(var i=0;i<voice.length;i++){
+			if(voice[i]==keyCode){
+				return 1;
+			}
+
+		}
+	}
+	document.onkeydown=function(event){
+		var num = found(event.keyCode);
+		if(test(event.keyCode)){
+		var parent=oMusic[num].parentNode;
+		oMusic[num].play();
+		parent.style["background-color"]="#ccc";
+		};
+		if(event.keyCode==13){
+			PMusic(5,500);
+			setTimeout(PMusic(6,500),500);
+			setTimeout(PMusic(7,1000),1000);
+			setTimeout(PMusic(6,500),2000);
+			setTimeout(PMusic(-1,500),2500);
+			setTimeout(PMusic(6,500),3000);
+			setTimeout(PMusic(7,1000),3500);
+			setTimeout(PMusic(9,1000),4500);
+			setTimeout(PMusic(6,1000),5500);
+			setTimeout(PMusic(-1,1000),6500);
+			setTimeout(PMusic(-1,1000),7500);
+			setTimeout(PMusic(2,500),8500);
+			setTimeout(PMusic(2,500),9000);
+		}
+	}
+	document.onkeyup=function(event){
+		var num = found(event.keyCode);
+		if(test(event.keyCode)){
+		var parent=oMusic[num].parentNode;
+		oMusic[num].load();
+		oMusic[num].pause();
+		parent.style["background-color"]="";
+		};
+	}
+	function PMusic(num,time){
+		if(num!=-1){
+		oMusic[num].play();
+		setTimeout(function(){oMusic[num].load();
+		oMusic[num].pause();},time);
+	}else{
+		setTimeout(function(){},time);
+	}
+		
+	}
+	</script>
+</body>
+</html>

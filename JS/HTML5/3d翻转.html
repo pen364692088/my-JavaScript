@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+		
+	
+	#bigBox{
+		position:relative;
+		margin:0 auto;
+		width:200px;
+		height:200px;
+		border:5px solid blue;
+		perspective:800px;		
+		
+	}
+
+	#box{
+		position:absolute;
+		width:100px;
+		height:100px;
+		left:50%;top:50%;
+		background-color: #000;
+		color:white;
+		transform:translate(-50%,-50%) rotateY(90deg);
+		
+	}
+	#box_2{
+		position:absolute;
+		width:100px;
+		height:100px;
+		left:50%;top:50%;
+		color:white;
+		background-color: blue;
+		transition:transform 1.5s ;
+		transform:translate(-50%,-50%);
+		
+	}
+	
+	</style>
+</head>
+<body>
+	<div id="bigBox">
+	<div id="box"><p>
+		你好
+	</p></div>
+	<div id="box_2"><p>
+		你好
+	</p></div>
+	
+	</div>
+	<script>
+	var box_2=document.getElementById("box_2");
+	var box=document.getElementById("box");
+	var bigBox=document.getElementById("bigBox");
+	bigBox.onclick=function(){
+		box.style="transition:transform 1.5s  1.5s ;transform:translate(-50%,-50%) rotateY(180deg);";
+		box_2.style="transform:translate(-50%,-50%) rotateY(90deg);";
+	}
+	</script>
+</body>
+</html>

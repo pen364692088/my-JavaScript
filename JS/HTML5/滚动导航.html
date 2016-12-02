@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nav</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	.box{
+		height:50px;
+		overflow: hidden;
+		position: relative;
+		left:500px;top:500px;
+		color:white;
+	}
+	.box ul{
+		height:50px;
+	}
+	.box li{
+		position: relative;
+		list-style: none;
+		float:left;
+		display: inline-block;
+		width:80px;height:40px;line-height: 40px;
+		top:0;
+		margin-left: 10px;
+		font-size: 20px;
+		background-color:#3670C2;
+		transition:top .7s ease-in-out;
+		text-align: center;
+		border-radius: 7%;
+		border:5px solid #ccc;
+	}
+	.box span{
+		width:80px;height:40px;line-height: 40px;
+		background: #D16A97;
+		position: absolute;
+		top:100%;
+		left:-5px;
+		transition:top .7s ease-in-out;
+		border-radius: 7%;
+		border:5px solid #ccc;
+		margin-top:5px;
+	}
+	.box li:hover {
+		top:-100%;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+	<ul>
+		<li>首页<span>首页</span></li>
+		<li>音乐<span>音乐</span></li>
+		<li>视频<span>视频</span></li>
+		<li>娱乐<span>娱乐</span></li>
+		<li>资讯<span>资讯</span></li>
+	</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animation</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	html,body{
+		width:100%;height:100%;
+	}
+	.bigBox{
+		width:500px;
+		height:300px;
+		/* border:1px solid red; */
+		position:relative;
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+	}
+	.box_1,.box_2{
+		width:100px;
+		height:100px;
+		margin-left:100px;
+		margin-top: 100px;
+		display: inline-block;
+		transition:transform 1.4s ease-in-out;
+		border-radius: 5%;
+
+	}
+	.box_1{
+		background-color: red;
+		transform-origin:200px 50px;
+	}
+	.box_2{
+		background-color: yellow;
+		transform-origin:-100px 50px;
+	}
+	.bigBox:hover .box_1{
+		transform:rotate(720deg);
+	}
+	.bigBox:hover .box_2{
+		transform:rotate(-720deg);
+		
+	}
+	</style>
+</head>
+<body>
+	<div class="bigBox">
+		<div class="box_1"></div>
+		<div class="box_2"></div>
+	</div>
+</body>
+</html>

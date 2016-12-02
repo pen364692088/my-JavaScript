@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>change</title>
+</head>
+<body>
+	<div class="box"></div>
+	<script src="script/jquery.js"> </script>
+	<script>
+	var oBox=document.querySelector(".box");
+	console.log(oBox);
+	var $Box=$(oBox);
+	console.log($Box);//DOM对象转换为JQ对象
+	console.log($Box[0]);//JQ对象转换为DOM对象
+	</script>
+</body>
+</html>

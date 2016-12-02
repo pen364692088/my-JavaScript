@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+<input type="button" value="开始" class="btn"> 
+<input type="button" value="开始" class="btn"> 
+<input type="button" value="开始" class="btn"> 
+<input type="button" value="开始" class="btn"> 
+	<script>
+    	var obtn=document.getElementsByClassName("btn");
+    	for(var i=0;i<obtn.length;i++){
+    		obtn[i].onclick=function(){
+    		alert(getid(this));
+            }
+    	}
+    	function getid(obj){
+    		var parent = obj.parentNode;
+    		var child = parent.children;
+    		for(var i=0;i<child.length;i++)
+    		{
+    			if(child[i]===obj){
+    				return i;
+    			}
+    		}
+    	}
+	</script>
+</body>
+</html>

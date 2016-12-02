@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>塞盒子</title>
+</head>
+<style>
+*{
+	margin:0;padding:0;
+}
+	.box{
+		width:50px;height:50px;background-color: #666;
+		margin:10px;float: left;
+	}
+</style>
+<body>
+	<input type="button" value="添加" id="btn">
+	<div id="content"></div>
+	<script>
+	var oBtn=document.getElementById("btn");
+	var oCon=document.getElementById("content");
+	var oBox=oCon.getElementsByTagName('div')
+	var Str="";
+	oBtn.onclick=function(){
+		for(var i=0;i<80;i++){
+			Str+="<div class=\"box\" >"+i+"</div>";
+			if((i+1)%10==0){
+				Str+="<br/><br/><br/><br/>"
+			}
+		}
+		oCon.innerHTML+=Str;
+		/*for(var i=0;i<80;i++){
+			oBox[i].style.left=10+60*i;
+		}*/
+	}
+	</script>
+</body>
+</html>

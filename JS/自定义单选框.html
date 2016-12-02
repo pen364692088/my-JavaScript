@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义单选框</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	.box{
+		position: relative;
+		width:200px;
+		height:200px;
+		left:50%;top:50%;
+		transform:translate(-50%,-50%);
+		/* border:1px solid red; */
+	}
+	label{
+		position:relative;
+	}
+	label::before{
+		content:"";
+		
+		display: inline-block;
+		width:20px;
+		height:20px;
+		border:1px solid #ccc;
+		border-radius:50%;
+		margin-right: 5px;
+	}
+	input{
+		display: none;
+	}
+	input:checked+span{
+		display: inline-block;
+		width:8px;
+		height:8px;
+		border-radius:50%;
+		background-color: blue;
+		position:absolute;
+		left:7px;top:-1px;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<label for="male"><input id="male" type="radio" name="sex"><span></span>man</label>
+		<label for="female"><input id="female" type="radio" name="sex"><span></span>woman</label>
+	</div>
+</body>
+</html>

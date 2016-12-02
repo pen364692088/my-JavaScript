@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拉动条</title>
+</head>
+<style>
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	*{
+		margin:0;padding:0;
+	}
+	.voice_box_width,.voice_line_width{
+		
+		 /* border:1px solid red;  */
+	}
+	.voice_box_width{
+	width:250px;
+	height:50px;
+	position:relative;
+	left:50%;top:50%;
+
+	transform:translateX(-50%) translateY(-50%);
+	/* border:1px solid red; */
+	
+
+}
+	.voice_line_width{
+		width:200px;
+		height:25px;
+		background-color: #ccc;
+		position:relative;
+		border-radius: 10px;
+		left:0%;top:50%;
+		border:5px solid #eee;
+		transform: translateY(-50%);
+		box-shadow: 0px 0px 3px #000;
+		/* border:1px solid red; */
+	}
+	.voice_ball_width{
+		width:40px;height:40px;
+		border-radius: 50%;
+		background-color: #fff;
+		border:5px solid #f1f1f1;
+		position:absolute;
+		box-shadow: 0px 0px 3px #000;
+		top:50%;
+		left:0px;
+		transition:left 0.7s ease-in-out;
+	
+		transform:translateY(-50%);
+	}
+	p{
+		position: absolute;
+		font-size: 25px;
+		top:150%;
+		margin-left:50%;
+	}
+</style>
+
+<body>
+	<div class="voice_box_width">
+		
+		<div class="voice_line_width"><div class="voice_ball_width"><p>0%</p></div>
+	</div>
+	</div>
+	<script>
+ 		var oBall=document.getElementsByClassName("voice_ball_width")[0];
+ 		var oLine=document.getElementsByClassName("voice_line_width")[0];
+ 		var oBox=document.getElementsByClassName("voice_box_width")[0];
+ 		var oP=oLine.getElementsByTagName("p")[0];
+ 		var left=oLine.offsetLeft+oBox.offsetLeft+oBall.offsetLeft-oBox.offsetWidth/2;
+ 		var old_x=left;
+ 		var Line_width=Number(oLine.offsetWidth);
+ 		var num=0;
+ 		/*console.log("line的从属左边距: "+oLine.offsetLeft,"box的从属左边距: "+oBox.offsetLeft,"ball的从属左边距: "+oBall.offsetLeft,"line的宽度: "+oLine.offsetWidth);*/
+ 		oLine.onclick=function(event){
+ 			var x=event.clientX;
+ 			/*console.log(x);
+ 			console.log(old_x);*/
+ 			var turn=x-old_x;
+ 			if((turn<=2)){
+ 				turn=0;
+ 			}
+ 			if(turn>=Line_width-oBall.offsetWidth-5){
+ 				turn=Line_width-oBall.offsetWidth;
+ 			}
+ 			num=(turn*100)/(oLine.offsetWidth-oBall.offsetWidth);
+ 			oP.innerHTML=num+"%";
+ 			oBall.style.left=turn+"px";
+ 			/*alert(oLine.offsetWidth);*/
+ 		}
+
+	</script>
+</body>
+</html>

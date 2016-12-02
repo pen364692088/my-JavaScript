@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>滚动</title>
+	<style type="text/css">
+    
+	.img_1 li{
+		float:left;
+		list-style: none;
+	}
+	.box{width:500px;height:300px;
+		overflow: hidden; 
+
+	 }
+	 .img_1{width:1500px;height:300px;  margin:0px;padding:0px;
+	 	
+	 }
+	.img_1 img{width:500px;height:300px; 
+		
+	 }
+	 .num_1 li{position:relative;left:350px;border:2px solid blue;float:left;list-style: none;font-size:200%;
+	     letter-spacing:15px;}
+	 .box_2{width:500px;height:500px;background-color: #1f5;}
+	</style>
+</head>
+<body>
+	<div class="box">
+	<ul  class="img_1">
+		<li><img   src="image/1.jpg" alt=""></li>
+		<li><img   src="image/2.jpg" alt=""></li>
+		<li><img   src="image/3.jpg" alt=""></li>
+
+	</ul>
+	</div>
+	<ul id="num" class="num_1">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	<div class="box_2">
+		
+	</div>
+	<script src="script/jquery.js"></script>
+	<script>
+	var i=0;
+	$(".num_1 li").click(function(){
+		var d= $(this).index();
+		$(".img_1").animate({"margin-left":d*-500},300);
+		i=d;
+
+	})
+	var s=0;
+	$(".box_2").click(function(){
+		
+		$(".box_2").animate({"margin-left":20+s*20},100);
+		s++;
+		
+
+	})
+	$(".num_1 li").mouseover(function(){
+		var d= $(this).index();
+		$(".img_1").animate({"margin-left":d*-500},700);
+		i=d;
+		clearInterval(t);
+
+	}).mouseleave(function(){
+       t=setInterval(croll,1500);
+
+	})
+	
+    function croll(){
+    	
+    		$(".img_1").animate({"margin-left":i*-500},700);
+			i++;
+    		i=i===3?0:i;
+
+    	}
+    
+	t=setInterval(croll,1500);
+    
+	</script>
+</body>
+</html>

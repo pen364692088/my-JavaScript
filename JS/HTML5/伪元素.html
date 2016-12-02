@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>伪元素</title>
+</head>
+<style>
+    *{
+    	margin:0;padding:0;
+    }
+	.box{
+		width:100px;
+		height:30px;
+		font-size: 20px;
+		line-height: 30px;
+		margin:100px auto; 
+		text-align: center;
+		
+	}
+	.content{
+		position:relative;
+		line-height: 30px;
+
+	}
+	.content::before,.content::after{
+		opacity:0;
+		transition:transform 1s ease-in-out,opacity 1s ease-in-out 0.5s;
+	}
+	.content::before{
+		
+		content:"";
+	}
+	.content::after{
+		
+		content:"";
+	}
+	.content:hover::before,.content:hover::after{
+		position:absolute;
+		font-size: 40px;
+		
+	}
+	.content:hover::before{
+		content:"[";
+		left:-0em;
+		transform:translateX(-5px);
+		opacity:1;
+	}
+	.content:hover::after{		
+		content:"]";
+		transform:translateX(5px);
+		right:-0em;
+		opacity:1;
+		
+		
+	}
+	
+</style>
+<body>
+	
+	<div class="box">
+		<!-- :before -->
+		<p class="content">你好</p>
+		<!-- :after -->
+	</div>
+	
+</body>
+</html>

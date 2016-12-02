@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>评分功能</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	ul,li{
+		list-style: none;
+	}
+	.box{
+		position: relative;
+		left:50%;top:50%;
+		transform:translate(-50%);
+		/*border:1px solid red;*/
+		width:800px;
+		height:50px;
+		line-height: 50px;
+	}
+	.talk span{
+		color:red;
+	}
+	.talk{
+		float:left;
+		margin-right:20px;
+	}
+	.box ul{
+		float:left;
+	}
+	.box ul img{
+		height:40px;
+	}
+	.box ul li{
+		float:left;
+		margin-right:5px;
+	}
+	.box div{
+		
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p class="talk"><span>*</span>总体评价:</p>
+		<ul>
+			<li><img src="image/star-empty.png" alt=""></li>
+			<li><img src="image/star-empty.png" alt=""></li>
+			<li><img src="image/star-empty.png" alt=""></li>
+			<li><img src="image/star-empty.png" alt=""></li>
+			<li><img src="image/star-empty.png" alt=""></li>
+		</ul>
+		<p class="number">提示:点击小星星就可以进行评分</p>
+	</div>
+	<script>
+		var oBox=document.getElementsByClassName("box")[0];
+		var oStar= oBox.getElementsByTagName("li");
+		var oSays= oBox.getElementsByTagName("p")[1];
+		console.log(oStar);
+		var onoff=0;
+		var oClick=null;
+		var says=["提示:点击小星星就可以进行评分","不好","一般","挺好的","力荐","完美"];
+
+		for(var i=0;i<oStar.length;i++){
+			oStar[i].onmouseover=function(){
+				update(1,this);
+			}
+			oStar[i].onclick=function(){
+				update(1,this);
+				onoff=1;
+				oClick=this;
+			}
+
+			oStar[i].onmouseout=function(){
+				onoff?update(1,oClick):update(0,this);
+			}
+
+		}
+		function update(number,that){
+			var oSrc=["image/star-empty.png","image/star-full.png","image/star-full_bad.png"]
+			var index=getIndex(that);
+				for(var i=0;i<oStar.length;i++){
+					var oImg=oStar[i].getElementsByTagName("img")[0];
+					oImg.src=oSrc[0];
+					oSays.innerHTML=says[0];
+				}
+				for(var i=0;i<index+1;i++){
+					var oImg=oStar[i].getElementsByTagName("img")[0];
+					if(index<2){
+						oImg.src=number?oSrc[2]:oSrc[0];
+					}else{
+						oImg.src=number?oSrc[1]:oSrc[0];
+					}					
+					oSays.innerHTML=number?says[index+1]:says[0];
+				}
+			
+		}
+		function getIndex(obj){
+			var parent=obj.parentNode;
+			var children=parent.children;
+			for(var i=0;i<children.length;i++){
+				if(children[i]===obj){
+					return i;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

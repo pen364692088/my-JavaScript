@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Scroll</title>
+</head>
+<body>
+	<script src="script/jquery"></script>
+	<script>
+	$(document).ready(function(){
+  $(".btn1").click(function(){
+    $("div").scrollTop(466);
+  });
+  $(".btn2").click(function(){
+    alert($("div").scrollTop()+" px");
+  });
+});
+  if (document.attachEvent) {
+    document.attachEvent("onmousewheel", function(e) {
+        mousewheelEvent(e, e.wheelDelta);
+    });
+}else if (document.addEventListener) {
+    document.addEventListener("DOMMouseScroll", function(e) {
+        mousewheelEvent(e, e.detail * -40);
+    }, false);
+}
+	</script>
+</body>
+</html>

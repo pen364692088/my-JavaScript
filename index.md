@@ -7,7 +7,7 @@
 * [热身运动](HTML5/热身运动.html)  
 * [旋转导航](HTML5/旋转导航.html)  
 * [移动动画](HTML5/移动动画.html)  
-* [animation](HTML5/移动动画.html)  
+* [animation](HTML5/animation.html)  
 * [聊天室](TALK/index.html)  
 * [拉动条](拉动条.html)  
 * [按钮控制商品滚动](按钮控制商品滚动.html)  

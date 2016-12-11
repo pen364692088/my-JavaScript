@@ -32,6 +32,7 @@
 		background-size:contain;
 		animation:turn 5.0s infinite linear;
 		animation-play-state:paused;
+		-webkit-animation:turn 5.0s infinite linear;
 
 		
 	}
@@ -45,7 +46,17 @@
 		    transform:rotate(360deg);
 		}
 	}
-
+	@-webkit-keyframes turn{
+		from{
+			transform-origin:center;
+		    transform:rotate(0deg);
+		}
+		to{
+			transform-origin:center;
+		    transform:rotate(360deg);
+		}
+	}
+	
 	#buttom{
 		position:absolute;
 		width:50px;

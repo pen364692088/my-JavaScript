@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汉诺塔</title>
+</head>
+<body>
+	<script>
+
+	function Hnt(num,a,b,c){
+		console.log(a+"→"+c);
+		Hnt(num-1,a,c,b);
+		Hnt(num-1,c,a,b);
+		
+	}
+	Hnt(3,"A",'B','C');
+	</script>
+</body>
+</html>

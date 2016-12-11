@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>排序</title>
+	<style>
+	table,td,tr,th{
+		border:1px solid #000;
+		border-collapse: collapse;
+		padding: 0;
+		text-align: center;
+	}
+	td{
+		width:60px;
+		height:40px;
+	}
+	table{
+		margin: 10px 0 0 10px;
+	}
+	</style>
+</head>
+<body>
+	<input type="button" value="年龄排序" id="age_btn">
+	<input type="button" value="成绩排序" id="grade_btn">
+	<script>
+	var age_btn=document.getElementById("age_btn");
+	var grade_btn=document.getElementById("grade_btn");
+	var List=[
+			{name:"A",age:40,grade:60},
+			{name:"B",age:1,grade:0},
+			{name:"C",age:50,grade:45},
+			{name:"D",age:10,grade:75},
+			{name:"E",age:8,grade:60},
+			{name:"F",age:15,grade:98}
+		];
+	function sort(array,text){
+		var len=array.length;		
+		var middle=0;
+		for(var i=len;i>0;i--){
+			for(var j=0;j<i-1;j++){
+				if(array[j][text]>array[j+1][text]){
+					middle=array[j];
+					array[j]=array[j+1];
+					array[j+1]=middle;
+				}
+			}
+		}
+	}
+	age_btn.onclick=function(){sort(List,"age");update();}
+	grade_btn.onclick=function(){sort(List,"grade");update();}
+	update();		
+	function update(){
+		if(document.getElementsByTagName("table")[0]){
+			/*var thead=document.getElementsByTagName("thead")[0];
+			var tbody=document.getElementsByTagName("tbody")[0];
+			oTable.removeChild(thead);	
+			oTable.removeChild(tbody);	*/
+			var oTable=document.getElementsByTagName("table")[0];
+			document.body.removeChild(oTable);
+		}
+		var oTable=document.createElement("table");
+		var oThead=document.createElement("thead");
+		var oTbody=document.createElement("tbody");
+		document.body.appendChild(oTable);
+		oTable.appendChild(oThead);
+		oTable.appendChild(oTbody);
+		var oHeadTr=document.createElement("tr");			
+		oThead.appendChild(oHeadTr);
+		var text=[];
+		for(var i in List[1]){
+			text.push(i);
+		}
+		for(var i=0;i<text.length;i++){
+			var oHeadTh=document.createElement("th");
+			oHeadTh.innerText=text[i];
+			oHeadTr.appendChild(oHeadTh);
+		}
+		/*for (var i=0;i<text.length;i++){
+			oHeadTr.createElement("li");
+		}*/
+		/*var oThead_tr=oThead.getElementsByTagName("tr");*/
+		padding(oTbody,text);
+		/*var oTr=oTbody.getElementsByTagName("tr");*/
+		//padding(oTr,text);
+		
+	}
+/*function padding(Tr,text){
+		for(var i=0;i<Tr.length;i++){
+			var Td=Tr[i].getElementsByTagName("td");
+			for(var j=0;j<Td.length;j++){
+				Td[j].innerText=List[i][text[j]];
+			}
+		}
+	}*/
+	function padding(oTbody,text){
+		
+		for(var i=0;i<List.length;i++){
+			var oTr=document.createElement("tr");
+			for(var j=0;j<text.length;j++){
+				var oTd=document.createElement("td");
+				oTd.innerText=List[i][text[j]];
+				oTr.appendChild(oTd);
+			}
+			oTbody.appendChild(oTr);
+		}
+	}
+	</script>
+</body>
+</html>

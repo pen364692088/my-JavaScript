@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡排序</title>
+</head>
+<body>
+	<script>
+		 var numList=[1,5,8,9,6,4,13,2,7,6,10,3,15,1,1564,4846,2,115,46,3156,421,3216,4,32164,2,15,4654,6465,5,16,51,6,56,315,1564,84,84654,645,123,2131,6,1346,48464,2,313,1354,46546,8446,13213,46456,54684,1344,135,484,4231];
+	 function test(){
+	 	var len=numList.length;
+	 	var middle=0;
+	 	for(var i=len;i>0;i--){
+	 		for(var j=0;j<i;j++){
+	 			if(numList[j]>numList[j+1]){
+	 				middle=numList[j];
+	 				numList[j]=numList[j+1];
+	 				numList[j+1]=middle;
+	 			}
+	 			
+	 		}
+	 		
+	 	}
+	 }
+	 test();
+	 console.log(numList);
+	</script>
+</body>
+</html>

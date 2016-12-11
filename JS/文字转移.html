@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字转移</title>
+    <style>
+    *{
+        margin:0;padding:0;
+    }
+    html,body{
+        position: relative;
+        width:100%;
+        height:100%;
+        background-color: #ccc;
+        color:#444;
+        font-family: "微软雅黑";
+    }
+    ul,li{
+        list-style: none;
+    }
+    /* 通用设置 */
+    .box{
+        position: relative;
+        width:80%;
+        height:400px;
+        margin:0 auto;
+        border:10px solid #aaa;
+        background-color: #fff;
+        margin-top: 50px;
+
+    }
+    .box textarea,.text{
+        width:40%;
+        border:6px solid #ccc;
+
+    }
+    .box textarea{
+        left:20px;
+        font-size: 18px;
+        text-indent: 1.2em;
+        line-height: 26px;
+    }
+    .text{
+        right:20px;
+    }
+    .turn{
+        text-align: center;
+        width:10%;
+        left:calc(50% - 5%);
+        
+    }
+    .turn,.text, .box textarea{
+        position:absolute;
+        height:300px;
+        top:calc(50% - 150px);
+        
+    }
+    .btn,.btn_running{
+        margin:0 auto;
+        width:100px;
+        height:70px;
+        line-height: 70px;
+        font-size: 26px;
+        color:#fff;
+        background-color: #D96D05;
+        transition:background-color 0.4s ease-in-out;
+    }
+    .btn:hover{
+        background-color: #FECF2D;
+    }
+    .btn_running{
+        display:none;
+        position: absolute;
+        top:0;
+        left:calc(50% - 50px);
+        background-color: rgba(0,0,0,0.3);
+    }
+    .turn ul{
+        display: block; 
+        position: relative;
+        left:50%;
+        transform:translateX(-50%);
+        margin-top:10px;
+        width:150px;
+        height:20px;
+        opacity: 0;
+        transition:opacity 0.3s ease-in-out;
+        /* border:1px solid red; */
+    }
+    .turn li{
+        float:left;
+        width:20px;
+        height:20px;
+        margin-left: 4px;
+        background-color: #FECF2D;
+    }
+    .turn_active{
+        background-color: #D96D05;
+    }
+    .number{
+        display: none;
+        position:absolute;
+        left:calc(50% - 50px);
+        top:120px;
+        width:100px;
+        height:50px;
+        font-size: 26px;
+        color:#444;
+       
+
+    }
+    .text{
+        text-indent: 2em;
+        line-height: 25px;
+        background-color: #eee;
+        color:#fff;
+        text-shadow:0px 0px 5px #000;
+    }
+    </style>
+    <script>
+    window.onload=function(){
+        var oContent=document.querySelector("textarea");
+        var oBtn=document.querySelector(".btn");
+        var oBtn_run=document.querySelector(".btn_running");
+        var ani=document.querySelector(".turn ul");
+        var number=document.querySelector(".number");
+        var outPut=document.querySelector(".text");
+        var sound=document.querySelector("audio");
+        //console.log(oContent,oBtn,oBtn_run,ani,outPut);
+        oBtn.onclick=function(){
+            oBtn_run.style["display"]="block";
+            ani.style["opacity"]="1";
+            number.style["display"]="block";
+            animation(ani);
+            TurnLeft(oContent,outPut);
+        }
+        function animation(obj){
+            clearInterval(obj.timer);
+            var children=obj.children;
+            var num=0;var len=children.length;
+           /* console.log(children);*/
+            obj.timer=setInterval(
+                function(){
+                children[num%len?num%len-1:len-1].style["background-color"]="#FECF2D";              
+                children[num%len].style["background-color"]="#D96D05";
+                num++;
+            },100);
+        }
+        function TurnLeft(obj1,obj2){
+            obj2.innerHTML=null;
+            var text=obj1.value;
+            var Num=number.querySelectorAll("span");
+            var textArray=text.split("");
+            var allLen=textArray.length;
+            var nowLen=0;
+            obj1.innerHTML=text;
+            Num[1].innerHTML=allLen;
+            Num[0].innerHTML=nowLen;
+            sound.play();
+            sound.loop=true;
+
+            obj1.timer=setInterval(function(){
+                   obj1.value=text.substring(nowLen+1);
+                   obj2.innerHTML+=textArray[nowLen];
+                   nowLen++;
+                   Num[0].innerHTML=nowLen;
+
+                   if(nowLen==allLen){
+                    sound.pause();
+                    obj1.innerHTML=null;
+                    clearInterval(obj1.timer);
+                    clearInterval(ani.timer);                    
+                    ani.style["opacity"]=0;
+                    oBtn_run.style["display"]="none";
+                   }
+            },100);
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="box">
+        <audio src="music/keydown.mp3"></audio>
+        <textarea> 虚拟现实   指利用一种机器（如NERDLES），用埋藏在机器内的无数信号原件产生多重电场，和使用者的脑部直接连接，不是透过眼睛或耳朵等感觉器官，而是直接对脑部传送虚拟的五感情报来生成虚拟空间。同时透过回收脑部发给身体的电子讯号，就算在虚拟空间内进行各种运动，现实世界的身体也毫无反应。因在游戏世界里活动角色，现实中的身体并不会跟着动作，而意识也完全进到游戏中不受外界干扰而有此称呼。</textarea>
+        <div class="turn">
+           <div class="btn">转移</div>
+           <div class="btn_running"></div> 
+           <ul>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+           </ul>
+           <div class="number"><span></span>/<span></span></div>
+        </div>
+        <div class="text">  
+              
+        </div>
+    </div>
+</body>
+</html>

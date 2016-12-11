@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>控制滚动</title>
+	<style>
+	*{
+		margin:0;padding:0;
+	}
+	.box{
+		width:300px;
+		height:800px;
+		position: absolute;
+		border:1px solid red;
+		margin:auto;
+		left:0;top:0;right:0;bottom:0;
+	}
+	.up,.down{
+		position: absolute;
+		width:100%;
+		height:50px;
+		margin:0 auto;
+		line-height: 50px;
+		text-align: center;	
+		z-index: 3;
+		background-color:pink;
+
+	}
+	.up p,.downp p{
+		line-height: 50px;
+	}
+	.up{
+		top:0;
+	}
+	.down{
+		bottom:0;
+	}
+	.content{
+		position:relative;
+		height:100%;
+		overflow: hidden;
+	}
+	.content ul{
+		position: relative;
+	
+	}
+	ul,li{
+		list-style: none;
+	}
+	.content ul li{
+		position: relative;
+		width:100%;
+		height:200px;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="up"><p>↑</p></div>
+		<div class="content">
+			<ul>
+				<li style="background-color: red;"></li>
+				<li style="background-color: black;"></li>
+				<li style="background-color: green;"></li>
+				<li style="background-color: yellow;"></li>
+				<li style="background-color: blue;"></li>
+				<li style="background-color: pink;"></li>
+				<li style="background-color: black;"></li>
+				<li style="background-color: green;"></li>
+				<li style="background-color: yellow;"></li>
+				<li style="background-color: blue;"></li>
+			</ul>
+		</div>
+		<div class="down"><p>↓</p></div>
+	</div>
+	<script>
+	var  oUl=document.getElementsByTagName("ul")[0];
+	var oContent=document.getElementsByClassName("content")[0];
+	var oUl_height=parseInt(getComputedStyle(oUl).height)-parseInt(getComputedStyle(oContent).height);
+	var aLi=oUl.getElementsByTagName("li");
+	var oUp=document.getElementsByClassName("up")[0];
+	var oDown=document.getElementsByClassName("down")[0];
+	var timer=null;
+	var speed=5;
+	var real_position=0;	
+
+	oUp.onmouseover=function(){
+		
+		/*console.log("up");*/
+		clearInterval(timer);
+		timer=setInterval(function(){move(1);
+		},14);
+	}
+	oUp.onmouseleave=function(){
+		clearInterval(timer);
+	}
+	oDown.onmouseover=function(){
+		/*console.log("down");*/
+		clearInterval(timer);
+		timer=setInterval(function(){move(0);
+		},14);//刷新率越高越流畅
+	}
+	oDown.onmouseleave=function(){
+		clearInterval(timer);
+	}
+	function move(order){
+		/*console.log(oUl_height);*/
+		if(order){
+
+			if(real_position){
+			real_position+=speed;
+			oUl.style["transform"]='translateY('+real_position+'px)';
+			/*console.log(oUl.style["transform"]);*/
+			}
+			
+			/*console.log("up");*/
+		}else{
+			if(real_position>=-oUl_height){
+			real_position-=speed;
+			oUl.style["transform"]='translateY('+real_position+'px)';
+			/*console.log(oUl.style["transform"]);*/
+			}
+			/*console.log("down");*/
+		}		
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>延时消失菜单</title>
+<style>
+	*{
+		margin:0;padding:0;
+	}
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	.box{
+		position:relative;
+		width:600px;
+		height:120px;
+		left:calc(50% - 300px);
+		top:calc(50% - 40px);
+		/* background-color: #739ACB; */
+		/* border:1px solid red; */
+	}
+	ul,li{
+		list-style: none;
+	}
+	.nav{
+		text-align: center;
+	}
+	.nav>li{
+		position: relative;
+		float: left;
+		width:120px;
+		height:60px;
+		line-height: 60px;
+		border:1px solid #D4D4E7;
+		border-radius: 5px;
+	}
+	.hidden_nav{
+		position:absolute;
+		width:400px;
+		height:40px;
+		text-align: center;
+		line-height: 40px;
+		top:calc(50% + 10px);
+		/* border:1px solid yellow;  */
+		display: none;
+		background-color: #fff;
+		z-index: 1;
+
+	}
+	.hidden_nav_0{
+		left:20px;
+	}
+	.hidden_nav_1{
+		left:140px;
+	}
+	.hidden_nav_2{
+		left:250px;
+	}
+	.hidden_nav li{
+		float:left;
+		width:80px;
+		height:40px;
+		border:1px solid #EDE3EC;
+		border-radius: 5px;
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+	<ul class="nav">
+		<li> 我的首页 </li>
+		<li> 关于我们 </li>
+		<li> 博客 </li>
+	</ul>
+	<ul class="hidden_nav hidden_nav_0">
+		<li>最近更新</li>
+		<li>全场最佳</li>
+		<li>亮眼表现</li>
+	</ul>
+	<ul class="hidden_nav hidden_nav_1">
+		<li>公司简介</li>
+		<li>商务范围</li>
+		<li>品质保证</li>
+	</ul> 	
+	<ul class="hidden_nav hidden_nav_2">
+		<li>Blog</li>
+		<li>RSS</li>
+		<li>Git</li>
+	</ul>  	
+</div>
+<script>
+	var oUl=document.getElementsByClassName("nav")[0];
+	var aLi=document.querySelectorAll(".nav>li");
+	var aHidden_nav=document.getElementsByClassName("hidden_nav");
+	var timer=[null,null,null];
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].index=i;
+		aLi[i].onmouseover=function(){
+			var index=this.index;
+			clearInterval(timer[index]);
+			var oHidden=document.querySelector(".hidden_nav_"+index);
+			oHidden.style["display"]="block";
+			oHidden.style["z-index"]="3";
+		}
+		aLi[i].onmouseout=function(){			
+			var index=this.index;
+			var oHidden=document.querySelector(".hidden_nav_"+index);
+			timer[index]=setTimeout(function(){oHidden.style["display"]="none";oHidden.style["z-index"]="1";},400);			
+		 }
+		
+	}
+	for(var i=0;i<aHidden_nav.length;i++){
+		aHidden_nav[i].index=i;
+		aHidden_nav[i].onmouseover=function(){
+			index=this.index;
+			// console.log(index);
+			clearTimeout(timer[index]);
+			this.style["display"]="block";
+			this.style["z-index"]="3";
+		}
+		aHidden_nav[i].onmouseout=function(){
+			index=this.index;
+			var that=this;
+			timer[index]=setTimeout(function(){that.style["display"]="none";that.style["z-index"]="1";},400);	
+		}
+		
+	}
+</script>
+</body>
+</html>

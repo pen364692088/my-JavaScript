@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>经验条</title>
+	<style>
+	*{
+		margin:0;padding: 0;
+	}
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	.box{
+		width:500px;
+		height:80px;
+		/* border:1px solid red; */
+		position: relative;
+		left:calc(50% - 250px);
+		top:calc(50% - 30px);
+	}
+	.line{
+		position:absolute;
+		bottom:0;
+		width:500px;
+		height:60px;
+		border:1px solid blue;
+	}
+	.scroll{
+		/* position: relative; */
+		width:0px;
+		height:60px;
+		background-color:#3050e0;
+		opacity:0;
+		/* transition:width 0.7s ease-in-out; */
+	}
+	.font{
+		position: relative;
+		top:20px;
+		font-size: 25px;
+		line-height: 60px;
+		display: inline-block;
+		width:90px;
+		height:60px;
+		color:#000;
+		text-align: center;
+		/* border:1px solid red; */
+	}
+	</style>
+	<script>
+	 window.onload=function(){
+	 	var num_font=5;
+	 	var oBox=document.getElementsByClassName("box")[0];
+	 	
+
+	 	var src="";
+	 	for(var i=0;i<num_font;i++){
+	 		src+=" <p class='font'>+"+Number(i+1)+"</p> ";
+	 	}
+	 	oBox.innerHTML+=src;
+	 	var line=document.getElementsByClassName("line")[0];
+	 	line.innerHTML+="<div class= 'scroll' ></div>";
+	 	var font=oBox.querySelectorAll("p");
+	 	var scroll=line.querySelector(".scroll");
+
+	 	function scroll_move(){
+	 		clearInterval(scroll.timer);
+	 		var num=0;var opacity=0;
+	 		scroll.timer=setInterval(function(){
+	 			num=num>=getStyle(line,"width")?getStyle(line,"width"):num+=15;	 	
+	 			if(num>=getStyle(line,"width")){
+	 				num=getStyle(line,"width");
+	 				opacity>0?opacity-=0.1:opacity=0;
+	 				scroll.style["width"]=num+"px";
+	 				scroll.style["opacity"]=opacity;
+	 				if(opacity<=0){
+	 					/*alert("ok");*/
+	 					clearInterval(scroll.timer);
+	 				}	 				
+	 			}else{
+	 				opacity<1?opacity+=0.05:opacity=1;
+	 				scroll.style["opacity"]=opacity;
+	 			}
+	 			scroll.style["width"]=num+"px";
+	 		},30);
+	 		
+	 		
+	 	}
+	 	function font_move(obj){
+	 			clearInterval(obj.timer);
+	 			var top=0;var opacity=1; obj.onoff=0;
+	 			obj.timer=setInterval(function(){
+	 				
+	 									 					 			
+	 				if(top<=-200||obj.onoff){
+	 					obj.onoff=1;opacity+=0.04;
+	 					obj.style["top"]=20+"px";						
+						obj.style["opacity"]=opacity;
+						if(opacity>=1){
+							obj.style["opacity"]=1;
+							clearInterval(obj.timer);
+	 					}
+	 				}else{
+	 					top>-200?top-=6:top=-200;
+	 					opacity>0?opacity-=0.04:opacity=0;	 
+	 					obj.style["top"]=top+"px";
+	 					obj.style["opacity"]=opacity;
+	 				}	 				
+	 			},30);
+	 	}
+	 	oBox.onclick=function(){
+	 		var num=0;
+	 		clearInterval(oBox.timer);
+	 		scroll_move();
+			oBox.timer=setInterval(function(){
+				font_move(font[num]);
+				num++;
+				if(num>=font.length){
+					num=0;
+					clearInterval(oBox.timer);
+				}
+			},100);
+	 		
+	 	}
+	 	function getStyle(obj,attr){
+			/*console.log(getComputedStyle(obj)[attr]);*/
+			return parseInt(getComputedStyle(obj)[attr]?getComputedStyle(obj)[attr]:obj.currentStyle[attr]);
+			
+		}
+		
+		
+	 }
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="line">
+		</div>
+	</div>
+</body>
+</html>

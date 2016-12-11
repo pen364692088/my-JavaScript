@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查找与替换</title>
+    <style>
+    *{
+        margin:0;padding:0;
+    }
+    html,body{
+        position: relative;
+        width:100%;
+        height:100%;
+        background-color: #ccc;
+        font-size: 30px;
+        font-family: "微软雅黑";
+        color:#444;
+    }
+    span{
+        background-color: yellow;
+    }
+    ul,li{
+        list-style: none;
+    }
+
+    /* 通用设置 */
+    .box{
+        width:900px;
+        height:600px;
+        margin:0 auto;
+        /* border:1px solid red; */
+        position: relative;
+        top:50px;
+    }
+    .content{
+        width:600px;
+        padding:10px 20px 10px 20px;
+        text-align: justify;
+        height:auto;
+        border:5px solid #aaa;
+        position: relative;
+        margin:0 auto;
+        background-color: #fff;
+    }
+    .control{
+        width:100px;
+        position: absolute;
+        top:0;right:0;
+        text-align: center;
+    }
+    .control li{
+        width:80px;
+        height:80px;
+        line-height: 80px;
+        background-color: #65C92E;
+        color:#fff;
+        border:5px solid #bbb;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+    .hidden{
+        display: none;
+    }
+    .control li:hover{
+        background-color: #B8D62E;
+    }
+    .control_page{
+        display:none;
+        width:620px;
+        height:180px;
+        background-color: #ddd;
+        border:10px solid #aaa;
+        margin:0 auto;
+        left:0;right:0;
+        position: absolute;
+        bottom:0px;
+        border-radius:10px;
+    }
+    .control_page ul{
+        margin-top: 5px;
+        margin-left:20px;
+        font-size: 20px;
+    }
+     .control_page ul li{
+        margin-left:2px;
+        width:60px;
+        height:30px;
+        line-height: 30px;
+        float:left;
+        text-align: center;
+        border:5px solid #ccc;
+        background-color: #fff;
+     }
+     .control_page ul:after{
+        content:" ";
+        display: block;
+        clear:both;
+     }
+     .look_for,.replace{
+        display: none;
+        position: absolute;
+        width:600px;
+        height:120px;
+        bottom:5px;
+        margin:auto;
+        left:0;right:0;
+        background-color: #fff;
+        border:5px solid #ccc;
+        border-radius: 5px;
+     }
+     .look_for input[type="text"]{
+        position: absolute;
+        width:200px;
+        height:50px;
+        left:20%;top:30%;
+        font-size: 30px;
+     }
+     .look_for input[type="button"]{
+         position: absolute;
+        width:60px;
+        height:60px;
+        top:25%;
+        right:30%;
+        font-size:20px;
+     }
+     .active{
+        display: block;
+     }
+     .replace input[type="text"]{
+        position:relative;
+        width:200px;
+        height:50px;
+        margin-top: 30px;
+        margin-left: 10px;
+        font-size: 30px;
+     }
+     .replace input[type="button"]{
+         position: absolute;
+        width:60px;
+        height:60px;
+        top:20%;
+        right:10%;
+        font-size:20px;
+     }
+    </style>
+    <script>
+    window.onload=function(){
+        var oCon=document.querySelector(".content");
+        var oCtrl=document.querySelector(".control li");
+        var oPage=document.querySelector(".control_page");
+        var oLook=document.querySelector(".look_for");
+        var oLook_cont=oLook.querySelectorAll("input");
+        var oRe=document.querySelector(".replace");
+        var oRe_cont=oRe.querySelectorAll("input");
+        var oTwo=document.querySelectorAll(".control_page>ul li");
+        var parent=oCtrl.parentNode;
+        var oHid=parent.querySelectorAll("li");
+        var Before=oCon.innerHTML;
+        /*console.log(oCon,oCtrl,oPage,oLook,oRe);*/
+        oCtrl.onoff=false;
+        oCtrl.onclick=function(){            
+            oCtrl.innerText=oCtrl.onoff?"展开":"收缩";
+            for(var i=1;i<oHid.length;i++){               
+                oHid[i].className=oCtrl.onoff?"hidden":"active"; 
+                oPage.style["display"]=oCtrl.onoff?"none":"none";   
+            }
+            oCtrl.onoff=!oCtrl.onoff;       
+        }
+        for(var i=1;i<oHid.length;i++){
+            (function(i){
+                oHid[i].onclick=function(){
+                    oPage.style["display"]="block";
+                    oLook.style["display"]=i-1?"none":"block";
+                    oRe.style["display"]=i-1?"block":"none";
+            }
+            }(i));            
+        }
+        for(var i=0;i<oTwo.length;i++){
+            (function(i){
+                oTwo[i].onclick=function(){
+                    oLook.style["display"]=i?"none":"block";
+                    oRe.style["display"]=i?"block":"none";
+                }
+            }(i));                
+        }
+        oLook_cont[1].onclick=function(){
+            Looking(oLook_cont[0].value,"",1);
+        }
+        oRe_cont[2].onclick=function(){
+            Looking(oRe_cont[0].value,oRe_cont[1].value,0);
+        }
+        function Looking(text,text2,num){
+            if(text){
+                var founded=oCon.innerText.indexOf(text);
+                var now=oCon.innerText;
+                if(founded==-1){
+                    alert("未找到 ["+text+"]");
+                    return ;
+                }
+                if(num){
+                    var str=now.split(text).join('<span>'+text+'</span>');
+              /*  console.log(oCon.innerHTML.split(text));*/                    
+                }else{
+                  if(text2){
+                    var str=now.split(text).join('<span>'+text2+'</span>');
+                  }else{
+                        var i=confirm("确定要删除"+text2+"?");
+                        str=i?now.split(text).join(""):now;
+                  }                  
+                }
+               oCon.innerHTML=str;
+            }else{
+                alert("请输入内容");
+            }            
+        }
+    }   
+    </script>
+</head>
+<body>
+    <div class="box">
+    <div class="content">
+        传说中，圣杯是能够实现拥有者愿望的宝物。为了追求圣杯的力量，7位魔术师各自召唤英灵，展开争夺圣杯的战斗，这就是圣杯战争。
+时间退回到第五次圣杯战争的10年前，第四次圣杯战争，参与者正是士郎他们的父辈。为了得到圣杯不择手段的卫宫切嗣，年轻时代的言峰绮礼，间桐家与远坂家的关系，同样身为王却意志不同的三位英灵。第四次圣杯之战就此爆发。
+    </div>
+    <div class="control">
+        <ul>
+            <li >展开</li>
+            <li class="hidden">查找</li>
+            <li class="hidden">替换</li>
+        </ul>
+    </div>
+    <div class="control_page">
+        <ul>
+            <li>查找</li>
+            <li>替换</li>
+        </ul>
+        <div class="look_for">
+            <input type="text">
+            <input type="button" value="查找">
+        </div>
+        <div class="replace">
+            <input type="text">
+            <input type="text">
+            <input type="button" value="替换">
+        </div>
+    </div>
+    </div>
+</body>
+</html>

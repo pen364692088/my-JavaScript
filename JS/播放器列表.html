@@ -22,7 +22,7 @@
 		width:400px;
 		left:50%;top:50%;
 		transform:translate(-50%,-50%);
-		border:1px solid red;
+		border:1px solid #ccc;
 	}
 	.songer{
 		display:block;
@@ -34,37 +34,43 @@
 	.box li{
 		height:2em;
 		line-height: 2em;
-		border:1px solid red;
+		padding-left: 0.5em;
+		/*border:1px solid ;*/
 	}
 	.control{
 		padding-left: 0.7em;
 		height:50px;
 		line-height: 50px;
-		border:1px solid red;
+		border:1px solid #aaa;
 		opacity: 0.7;
 	}
 	.control img{
 		vertical-align: middle;
 		margin-left: 20px;
 	}
+	/*.focus*/
 	</style>
 </head>
 <body>
 	<div class="box">
 		<ul>
 			<li><input type="checkbox" class="checkSong">
+				<audio src="music/1.mp3"></audio>
 				<p class="song_name">深海少女</p>
 				<p class="songer">初音未来</p>
 			</li>
 			<li><input type="checkbox" class="checkSong">
+				<audio src="music/2.mp3"></audio>
 				<p class="song_name">UNreveal</p>
 				<p class="songer">东京食尸鬼</p>
 			</li>
 			<li><input type="checkbox" class="checkSong">
+				<audio src="music/3.mp3"></audio>
 				<p class="song_name">拔剑神曲</p>
 				<p class="songer">E-ghost</p>
 			</li>
 			<li><input type="checkbox" class="checkSong">
+				<audio src="music/4.mp3"></audio>
 				<p class="song_name">核爆神曲</p>
 				<p class="songer">罪恶王冠</p>
 			</li>
@@ -73,6 +79,7 @@
 			<label for="allCheck"><input type="checkbox" id="allCheck">全选</label>
 			<label for="noCheck"><input type="checkbox" id="noCheck">清空</label>
 			<label for="turnCheck"><input type="checkbox" id="turnCheck">反选</label>
+			<label for="onPlay"><input type="checkbox" id="onPlay">播放</label>
 			<img src="image/add.png" alt="" id="add">
 			<img src="image/plus.png" alt="" id="plus">
 			<img src="image/close.png" alt="" id="close">
@@ -80,29 +87,182 @@
 	</div>
 	<script>
 		var oBox=document.getElementsByClassName("box")[0];
+		var oMusic=oBox.getElementsByTagName("audio");
+		var oControl=document.getElementsByClassName("control")[0];
 		var oLi=oBox.getElementsByTagName("li");
+		var oAllClick=document.getElementById("allCheck");
+		var oNoClick=document.getElementById("noCheck");
+		var oTurnClick=document.getElementById("turnCheck");
+		var oPlay=document.getElementById("onPlay");
+		var oAdd=document.getElementById("add");
+		var oPlus=document.getElementById("plus");
+		var oClose=document.getElementById("close");
+		var backColor=["#f4f4f4","#ddd","#BFC6C5"];
+		var AddList=[];
+		var onPlay=null;
 
-		update(oLi[0],0);
+		update(oLi[0],0); //初始添加背景色
+
+		oPlay.onclick=function(){
+			var number=0;
+			var bug=0;
+			var playing=0;
+			for(var i=0;i<oLi.length;i++){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				if(oCheck.checked){
+					number++;
+				}
+				if(number==2){
+					alert("请选单个音乐播放");
+					bug++;
+					for(var i=0;i<oLi.length;i++){							
+						oMusic[i].pause();
+					}
+					oPlay.checked=false;
+					break;
+				}
+			}
+			if(!bug){
+				for(var i=0;i<oLi.length;i++){
+					var oCheck=oLi[i].getElementsByTagName("input")[0];
+					if(oCheck.checked){
+						onPlay=oMusic[i];
+						for(var j=0;j<oLi.length;j++){
+							if((!oMusic[j].paused)&&i!=j){
+									oMusic[j].pause();
+							}
+						}
+						oMusic[i].paused?oMusic[i].play():oMusic[i].pause();
+						if(i==oLi.length-1){i--;}
+						break;
+					}
+					if(i==oLi.length-1){
+						onPlay.paused?onPlay.play():onPlay.pause();
+					}
+				}
+			}
+			for(var i=0;i<oLi.length;i++){
+				if(!oMusic[i].paused){
+					playing++;
+				}
+			}
+			
+			oPlay.checked=playing?true:false;
+			
+		}
+		oAdd.onclick=function(){
+			var i=0;
+			while(i<oLi.length){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				
+				if(oCheck.checked){
+					var oName=oLi[i].getElementsByTagName("p")[0].innerHTML;
+					AddList.push(oName);
+				}
+				i++;
+			}
+			if(AddList.length){
+				alert("选取的歌曲:"+AddList+"已添加到收藏");
+			}else{
+				alert("请选择歌曲");
+			}
+			AddList=[];
+			
+		}
+		oPlus.onclick=function(){
+			var i=0;
+			while(i<oLi.length){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				
+				if(oCheck.checked){
+					var oName=oLi[i].getElementsByTagName("p")[0].innerHTML;
+					AddList.push(oName);
+				}
+				i++;
+			}
+			if(AddList.length){
+				alert("选取的歌曲:"+AddList+"已添加到我的列表");
+			}else{
+				alert("请选择歌曲");
+			}
+			AddList=[];
+		}
+		oClose.onclick=function(){
+			for(var i=0;i<oLi.length;i++){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				if(oCheck.checked){
+					var parent=oLi[i].parentNode;
+					parent.removeChild(oLi[i]);
+					i--;
+				}
+
+			}
+			update(oLi[0],0);
+			alert("选取的歌已被删除");
+		}
+		oAllClick.onclick=function(){
+			for(var i=0;i<oLi.length;i++){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				oLi[i].style["background-color"]=oAllClick.checked?(backColor[2]):(backColor[i%2]);
+				oCheck.checked=oAllClick.checked?true:false;
+			}
+		} //全选功能
+		oNoClick.onclick=function(){
+			for(var i=0;i<oLi.length;i++){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+
+				oCheck.checked=false;
+			}
+			update(oLi[0],0);
+			oNoClick.checked=false;
+			oAllClick.checked=false;
+			oTurnClick.checked=false;
+		} //取消功能
+		oTurnClick.onclick=function(){
+			for(var i=0;i<oLi.length;i++){
+				var oCheck=oLi[i].getElementsByTagName("input")[0];
+				oCheck.checked=!oCheck.checked;
+			}
+			update(oLi[0],3);
+			oTurnClick.checked=false;
+			oAllClick.checked=false;
+		} //反选功能
+		
 		for(var i=0;i<oLi.length;i++){	
 			oLi[i].off=0;	
 			oLi[i].onmouseover=function(){
 				update(this,1);
 			}
 			oLi[i].onclick=function(event){								
-				if(event.target.tagName=="INPUT"){	
-					console.log(event.target);				
-				 	event.target.checked=!event.target.checked;
-				 }
-				 else{
+					
+					// console.log(event.target.checked);				
+				 	// event.target.checked=!event.target.checked;
+				 var index=getIndex(this);
+				 
+				 if(event.target.tagName!="INPUT"){
 				 	var oClick=this.getElementsByTagName("input")[0];				
 				 	oClick.checked=!oClick.checked;
 				 }
-
-				 	update(this,1);	
+				 if(oLi[index].getElementsByTagName("input")[0].checked){
+				 	this.style["background-color"]=backColor[index%2];
+				 }else{
+				 	this.style["background-color"]=backColor[2];
+				 }
+				for(var i=0;i<oLi.length;i++){
+				 	var aClick=oLi[i].getElementsByTagName("input")[0];				 	
+				 	if(!aClick.checked){
+				 		oAllClick.checked=false;
+				 		break;
+				 	}
+				 	if(i==oLi.length-1){
+				 		oAllClick.checked=true;
+				 	}
+				 	}
+				 	
 			}
 			oLi[i].onmouseout=function(){
-
-				this.onoff?update(this,1):update(this,2);
+				var index=getIndex(this);
+				oLi[index].getElementsByTagName("input")[0].checked?update(this,1):update(this,2);
 			}
 		}
 		function update(that,num){
@@ -110,14 +270,21 @@
 			switch(num){
 				case 0:
 					for(var i=0;i<oLi.length;i++){
-					oLi[i].style["background-color"]= i%2?"#ddd":"#f4f4f4";
+					oLi[i].style["background-color"]=backColor[i%2];
 					}
 					break;
 				case 1:
-					that.style["background-color"]="#BFC6C5";
+					that.style["background-color"]=backColor[2];
 					break;
 				case 2:
-					that.style["background-color"]= index%2?"#ddd":"#f4f4f4";
+					that.style["background-color"]=backColor[index%2];
+					break;
+				case 3:
+					for(var i=0;i<oLi.length;i++){
+						var oInput=oLi[i].getElementsByTagName("input")[0];
+						oLi[i].style["background-color"]=oInput.checked?(backColor[2]):(backColor[i%2]);
+								
+					}	
 					break;
 				default:
 					

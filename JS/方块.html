@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>方块</title>
+	<style>
+	.Box{
+		width:50px;
+		height:50px;
+		background-color: orange;
+		position: relative;
+		display: inline-block;
+		margin-left: 10px;
+		top:0px;
+		
+	}
+	</style>
+	<script>
+	window.onload=function(){
+		var len=25;
+		var str="";
+		var box=document.getElementsByTagName("div");
+		for(var i=0;i<len;i++){
+		str+="<div class='Box'></div>";
+		}
+		document.body.innerHTML=str;
+		var n=0;document.body.on=false;
+		document.onclick=function(){
+			if(!document.body.on){
+			clearInterval(document.body.timer);
+			document.body.timer=setInterval(function(){
+				document.body.on=false;
+				move(box[n],"top",5,500);
+				n++;
+				if(n===len){n=0;
+					document.body.on=true;
+					clearInterval(document.body.timer);
+				}
+			},500);
+			}else{
+				clearInterval(document.body.timer);
+				document.body.timer=setInterval(function(){
+				document.body.on=true;
+				move(box[n],"top",5,10);
+				n++;
+				if(n===len){n=0;
+					document.body.on=false;
+					clearInterval(document.body.timer);}
+				},500);
+
+			}
+			/*console.log(box[0]);
+			getStyle(box[0],"top");*/
+		}
+
+		function move(obj,attr,speed,where){
+			clearInterval(obj.timer);
+			var length=getStyle(obj,attr);
+			/*console.log(length);*/
+			var nowLength=getStyle(obj,attr);
+			speed=where>=length?speed:-speed;
+			obj.timer=setInterval(function(){
+				/*console.log(nowLength);*/
+				nowLength+=speed;				
+				if(nowLength>where&&speed>0||nowLength<where&&speed<0){
+						nowLength=where;
+						obj.style[attr]=nowLength+"px";
+						clearInterval(obj.timer);
+				}
+				obj.style[attr]=nowLength+"px";
+			},30);
+			
+		}
+		function getStyle(obj,attr){
+			/*console.log(getComputedStyle(obj)[attr]);*/
+			return parseInt(getComputedStyle(obj)[attr]?getComputedStyle(obj)[attr]:obj.currentStyle[attr]);
+			
+		}
+
+	}
+	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

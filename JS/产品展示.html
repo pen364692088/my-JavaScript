@@ -10,17 +10,83 @@
 		height:100%;
 	}
 	.box{
+		position: relative;
 		width:500px;
 		height:200px;
-		border:1px solid red;
+		/* border:1px solid red; */
 		position: relative;
-		left:50%;top:50%;
-		transform:translate(-50%,-50%);
+		left:calc(50% - 250px);top:calc(50% - 100px);
+		text-align: center;
+
 	}
 	ul,li{
 		list-style: none;
 	}
 	.nav{
+		position:relative;
+		height:100%;
+		width:20%;
+	}
+	.nav li{
+		width:100%;
+		height:64px;
+		line-height:64px;
+		border:2px solid #9DA9E2;
+		border-radius:5px;
+	}
+	.content{
+		position: absolute;
+		top:0;
+		width:80%;
+		height:100%;
+		left:calc(20%);
+		/* border:1px solid blue; */
+
+	}
+	.content img{
+		position: absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:80%;
+		border-radius: 5px;
+		margin-left: 5px;
+		
+	}
+	.content ul{
+		width:100%;
+		height:40px;
+		position: absolute;
+		bottom:0;
+	}
+	.content li{
+		height:100%;
+		line-height: 40px;
+		width:32%;
+		float:left;
+		margin-left: 1px;
+		border:2px solid #9DA9E2; 
+		border-radius: 5px;
+	}
+	.content_1{
+		display: block;
+	}
+	.content_2{
+		display: none;
+	}
+	.content_3{
+		display: none;
+	}
+	.img_1{
+		display: block;
+	}
+	.img_1{
+		display: none;
+	}
+	.img_1{
+		display: none;
+	}
+	/* .nav{
 		width:10%;
 		height:100%;
 		display: inline-block;
@@ -44,43 +110,85 @@
 		width:0%;
 		height:100%;
 		background-color: #ccc;
-	}
+	} */
 	</style>
 </head>
 <body>
 	<div class="box">
-		<div class="nav">
-			<ul class="Ul">
-				<li><p>美白佳品</p></li>
-				<li><p>淘宝热卖</p></li>
-				<li><p>今日热销</p></li>		
-			</ul>
-		</div><div class="content">
-		<div class="content_1"><img src="" alt="">
+		<ul class="nav">
+			<li><p>美白佳品</p></li>
+			<li><p>淘宝热卖</p></li>
+			<li><p>今日热销</p></li>		
+		</ul>
+		
+		<div class="content content_1">
 			<ul>
 			<li class="listIn">墙纸</li>
 			<li class="listIn">行车记录仪</li>
 			<li class="listIn">新款男鞋</li>
 			</ul>
+			<img class="img_1"src="image/other_1.jpg" alt="">
+			<img class="img_2"src="image/img_6.jpg" alt="">
+			<img class="img_3"src="image/img_5.jpg" alt="">
 		</div>
-		<div class="content_2">
-			<img src="" alt="">
+		<div class="content content_2">
+			
 			<ul>
 			<li class="listIn">时尚女鞋</li>
 			<li class="listIn">短裤半身裙</li>
 			<li class="listIn">男士外套</li>
-		</ul>
+			</ul>
+			<img class="img_1"src="image/img_2.jpg" alt="">
+			<img class="img_2"src="image/img_1.jpg" alt="">
+			<img class="img_3"src="image/img_6.jpg" alt="">
 		</div>
-		<div class="content_3">
-			<img src="" alt="">
+		<div class="content content_3">
+			
 			<ul>
 			<li class="listIn">新款连衣裙</li>
 			<li class="listIn">四件套</li>
 			<li class="listIn">潮流T恤</li>
 			</ul>
+			<img class="img_1"src="image/img_3.jpg" alt="">
+			<img class="img_2"src="image/img_4.jpg" alt="">
+			<img class="img_3"src="image/img_1.jpg" alt="">
 		</div>
-	</div>
+	
 	<script>
+
+	var oContent=document.getElementsByClassName("content");
+	var oNav=document.querySelectorAll(".nav li");
+
+	console.log(oContent);
+	var that=oContent[0];
+	for(var i=0;i<oNav.length;i++){
+		oNav[i].index=i;
+		oNav[i].onmouseover=function(){
+			/*console.log(this.index);*/
+			that.style["display"]="none";
+			var index=this.index;
+			oContent[index].style["display"]="block";
+			that=oContent[index];
+		}
+	}
+	for(var i=0;i<oContent.length;i++){
+		var oFooter=oContent[i].querySelectorAll("ul li");
+		for(var j=0;j<oFooter.length;j++){
+			oFooter[j].index=j;
+			oFooter[j].onmouseover=function(){
+				var index=this.index;
+				var parent=this.parentNode;
+				var grandFather=parent.parentNode;
+				var img=grandFather.getElementsByTagName("img");
+				for(var i=0;i<img.length;i++){
+					img[i].style["display"]="none";
+				}
+				img[index].style["display"]="block";
+
+			}
+		}
+
+	}
 	/*var oListOut=document.getElementsByClassName("listOut");
 	var oUl=document.getElementsByClassName("Ul")[0];
 	var num=0;

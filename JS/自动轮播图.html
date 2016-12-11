@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自动轮播图</title>
+	<style>
+	*{margin:0;padding:0;}
+	.box{
+		position: absolute;
+		width:600px;
+		height:400px;
+		border:1px solid red;
+		left:calc(50% - 300px);
+		top:calc(50% - 200px);
+		font-size: 50px;
+		text-align: center;
+		overflow: hidden;
+	}
+	.pic{
+		position:relative;
+		width:100%;
+		height:100%;
+		overflow: hidden;
+		color:#fff;
+		line-height: 400px;
+		
+	}
+	.pic ul{
+		position: relative;
+		width:800%;
+		height:100%;
+	}
+	.pic li{
+		position:relative;
+		width:12.5%;
+		height:100%;
+		display:block;
+		float:left;
+	}
+	ul,li{
+		list-style: none;
+	}
+	.text{
+		position:relative;
+		width:100%;
+		height:30%;
+		line-height: 120px;
+
+	}
+	.text ul{
+		position:relative;
+		width:100%;
+		height:100%;
+	}
+	.text li{
+		position: absolute;
+		width:100%;
+		height:100%;
+		color:#fff;
+		background-color: rgba(0,0,0,.6);
+	}
+	</style>
+	<script>
+	window.onload=function(){
+		var oBox=document.querySelector(".box");
+		var oLi=oBox.querySelectorAll(".pic li");
+		var oText=oBox.querySelectorAll(".text li");
+		var oPic=oBox.querySelector(".pic ul");
+		var num=0;
+		var width=parseInt(getComputedStyle(oPic).width);
+		var partWidth=width/oLi.length;
+
+		oBox.onclick=function(){
+
+			clearInterval(oBox.timer);
+			var top_go=0;var left_go=0;oPic.ready=true;
+			oBox.timer=setInterval(function(){
+				if(oPic.ready==true){
+					if(oText[num].on!=true){					
+					if(top_go<=-120){
+						top_go=-120;
+						oText[num].style["top"]=top_go+"px";
+						oText[num].on=true;
+						delay(2000);
+					}else{
+						top_go-=5;
+						oText[num].style["top"]=top_go+"px";
+					}
+					
+				}else{
+					if(top_go>=0){
+						top_go=0;
+						oText[num].style["top"]=top_go+"px";
+						oText[num].on=true;
+						oPic.ready=false;
+						console.log("准备移动");
+					}else{
+						top_go+=5;
+						oText[num].style["top"]=top_go+"px";
+					}
+				}
+			}else{
+				if(left_go> -partWidth ){
+					console.log("移动中");
+					left_go-=10;
+					if(left_go<=-partWidth)
+					  {left_go=-partWidth;}
+					
+				}else{
+					console.log("待机中");
+					left_go=0;
+					oPic.ready=true;
+					oText[num].on=false;
+					num++;
+					num%=oLi.length/2;									
+				}
+				oPic.style["left"]=left_go+ -num*partWidth +"px";
+				
+			}
+				
+				
+			},30);
+		}
+		function delay(num){
+			var now = new Date();			
+    		var exitTime = now.getTime() + num;
+   			while (true) {
+        	now = new Date();
+        	if (now.getTime() > exitTime)
+            	return;
+    		}
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="pic">
+			<ul>
+				<li style="background-color: red;">PIC</li>
+				<li style="background-color: blue;">PIC</li>
+				<li style="background-color: green;">PIC</li>
+				<li style="background-color: yellow;">PIC</li>
+				<li style="background-color: red;">PIC</li>
+				<li style="background-color: blue;">PIC</li>
+				<li style="background-color: green;">PIC</li>
+				<li style="background-color: yellow;">PIC</li>
+			</ul>
+			
+		</div>
+		<div class="text">
+			<ul>
+				<li >text1</li>
+				<li>text2</li>
+				<li>text3</li>
+				<li>text4</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

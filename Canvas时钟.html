@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas时钟</title>
+    <style type="text/css">
+    *{
+        margin:0;padding:0;
+    }
+    html,body{
+        width:100%;
+        height:100%;
+    }
+    canvas{
+        display: block;
+        margin:0 auto;
+        border:1px solid red;
+    }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+    var canvas=document.querySelector("canvas");
+    var context=canvas.getContext("2d");
+    var colorList=["#E6C1E3","#7AB900","#FF2525","#5683AA","#FFCC00"];
+    var width=1200,height=700;
+    var windowHeight=height;
+    var windowWidth=width;
+    var change=[0,0,0,0,0,0,0,0,0,0];
+    canvas.width=width;
+    canvas.height=height;
+    var fallBallList=[];
+    var ballRoad=5;
+
+    var nowDate=new Date();
+    var nowTime=nowDate.getTime();
+    var nowDay=nowDate.getDate();
+    var nowHours=nowDate.getHours();
+    var nowMin=nowDate.getMinutes();
+    var nowSec=nowDate.getSeconds();
+
+    var g=0.02;
+    var t=0;
+
+    var timeNumList=[
+                [   [0,0,1,1,1,0,0],
+                    [0,1,0,0,0,1,0],
+                    [0,1,0,0,0,1,0],
+                    [0,1,0,0,0,1,0],
+                    [0,0,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                    
+                ],//0
+                [   [0,0,0,1,0,0,0],
+                    [0,0,1,1,0,0,0],
+                    [0,1,0,1,0,0,0],
+                    [0,0,0,1,0,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//1
+                [   [0,0,1,1,1,0,0],
+                    [0,1,0,0,0,1,0],
+                    [0,0,0,0,1,,0],
+                    [0,0,0,1,0,0,0],
+                    [0,1,1,1,1,1,0],
+                    [0,0,0,0,0,0,0]
+                ],//2
+                [   [0,1,1,1,0,0,0],
+                    [1,0,0,0,1,0,0],
+                    [0,0,1,1,0,0,0],
+                    [1,0,0,0,1,0,0],
+                    [0,1,1,1,0,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//3
+                [   [0,0,0,1,0,0,0],
+                    [0,0,1,1,0,0,0],
+                    [0,1,0,1,0,0,0],
+                    [1,1,1,1,1,0,0],
+                    [0,0,0,1,0,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//4
+                [   [0,1,1,1,1,0,0],
+                    [0,1,0,0,0,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//5
+                [   [0,0,1,1,1,0,0],
+                    [0,1,0,0,0,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,1,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//6
+                [   [0,1,1,1,1,1,0],
+                    [0,0,0,0,1,0,0],
+                    [0,0,0,1,0,0,0],
+                    [0,0,0,1,0,0,0],
+                    [0,0,0,1,0,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//7
+                [   [0,1,1,1,1,0,0],
+                    [0,1,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,1,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//8
+                [   [0,1,1,1,1,0,0],
+                    [0,1,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,1,0,0],
+                    [0,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0]
+                ],//9
+                [   [0,0,0,0,0,0,0],
+                    [0,0,1,,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,1,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0]
+                ]//:
+            ];
+
+    update();
+   /* console.log(timeNumList[2]);*/
+   
+   /*for(var i=0;i<11;i++){
+    drawNumber(i,90*i,100);
+   }*/
+   
+    
+   function drawBall(x,y,r=5,color="#285EAF"){
+        context.beginPath();
+        context.arc(x,y,r,0,Math.PI*2,true);
+        context.fillStyle=color;
+        context.fill();       
+        
+    }//画球
+    function drawNumber(num,x,y,type=1){
+        if(type){
+            for(var i=0;i<timeNumList[num].length;i++){
+            for(var j=0;j<timeNumList[0][i].length;j++){
+                if(timeNumList[num][i][j]){
+                    drawBall(x+12*j,y+14*i);
+                  /* fullBall(x+12*j,y+14*i);*/
+                }
+             }
+            }
+        }else{
+            for(var i=0;i<timeNumList[num].length;i++){
+            for(var j=0;j<timeNumList[0][i].length;j++){
+                if(timeNumList[num][i][j]){
+                    var ball=new createFallBall([x+12*j,y+14*i],Math.random()*-0.2+0.05,Math.random()*0.12+-0.2,colorList[Math.floor(Math.random()*colorList.length)]);
+                    /*console.log(ball);*/
+                    fallBallList.push(ball);
+
+                }
+            }
+        }
+        
+       } 
+    }//画数字
+    function drawDate(day,hours,minutes,seconds){
+        var x=80,y=100;
+        var num=[Math.floor(day/10),day%10,10,Math.floor(hours/10),hours%10,10,Math.floor(minutes/10),minutes%10,10,Math.floor(seconds/10),seconds%10];
+        for(var i=0;i<num.length;i++){
+            /*console.log(change);*/
+            drawNumber(num[i],i*x+200,y);
+            if(change[i]){  
+                change[i]=0;       
+                drawNumber(num[i],i*x+200,y,0);
+
+            }            
+        }
+        
+   }//画日期
+
+//获得时间,更新时间,更新画面
+    function update(){
+        drawDate(nowDay,nowHours,nowMin,nowSec);
+        update.timer=setInterval(function(){
+            context.clearRect(0,0,width,height);
+            nextDate(nowDay,nowHours,nowMin,nowSec);
+            for(var j=0;j<fallBallList.length;j++){
+                    chagePos(fallBallList[j]);
+                    drawBall(fallBallList[j]["pos"][0],fallBallList[j]["pos"][1],5,fallBallList[j]["color"]);
+
+                    
+            } 
+        },50);
+    }
+    function nextDate(day,hours,min,sec){
+        var nextdate=new Date();
+        var nextTime=nextdate.getTime();
+        var nextday=nextdate.getDate();
+        var nexthours=nextdate.getHours();
+        var nextmin=nextdate.getMinutes();
+        var nextsec=nextdate.getSeconds();
+       /* console.log(nextday,nexthours,nextmin,nextsec);
+        console.log(day,hours,min,sec);*/
+
+        if(nextsec>nowSec||nextmin>nowMin||nexthours>nowHours){
+            
+            var num=[Math.floor(day/10),day%10,10,Math.floor(hours/10),hours%10,10,Math.floor(min/10),min%10,10,Math.floor(sec/10),sec%10];
+            var nextnum=[Math.floor(nextday/10),nextday%10,10,Math.floor(nexthours/10),nexthours%10,10,Math.floor(nextmin/10),nextmin%10,10,Math.floor(nextsec/10),nextsec%10];
+           /* for(var j=0;j<fallBallList.length;j++){
+                    console.log(fallBallList);
+                    chagePos(fallBallList[j]);
+            }*/
+            /*console.log(num,nextnum);*/
+           /* console.log(fallBallList);*/
+            for(var i=0;i<nextnum.length;i++){
+                    change[i]=num[i]===nextnum[i]?0:1;
+                }  
+                console.log(change);              
+                drawDate(nextday,nexthours,nextmin,nextsec); 
+                [nowDate,nowTime,nowDay,nowHours,nowMin,nowSec]=[nextdate,nextTime,nextday,nexthours,nextmin,nextsec];
+
+            }else{
+                drawDate(nowDay,nowHours,nowMin,nowSec); 
+            }
+            
+        
+    }
+    function createFallBall(pos,v_x,v_y,color){
+        this.pos=pos;
+        this.v_x=v_x;
+        this.v_y=v_y;
+        this.t=0;
+        this.color=color;
+    }
+    function chagePos(obj){
+        obj.t++;
+        obj["pos"][0]+=obj.v_x*obj.t;
+        obj.v_y+=g;
+        obj["pos"][1]+=obj.v_y*obj.t;
+        if(obj["pos"][1]>=windowHeight-ballRoad*2){
+            obj["pos"][1]=windowHeight-ballRoad*2;
+            obj.v_y*=-0.65;
+            obj.v_x*=0.8;
+            /*if(v_x<0.00001){
+                v_x=0;
+            }*/
+        }
+
+    }//改变小球位置
+    /*function darwFullBall(){
+
+    }*/
+  /* fullBall(100,100,r=5)*/
+    </script>
+</body>
+</html>

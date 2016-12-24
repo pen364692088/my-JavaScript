@@ -1,4 +1,9 @@
-#Demo小合集  
+#Demo小合集 
+
+* [Canvas时钟](Canvas时钟.html)  
+* [打怪小游戏](打怪小游戏.html)  
+* [JS拖拽](JS拖拽.htmll)  
+* [雪花飘落](雪花飘落.html)  
 * [音乐唱片](音乐唱片.html)  
 * [播放器列表](播放器列表.html)  
 * [文字转移](文字转移.html)  

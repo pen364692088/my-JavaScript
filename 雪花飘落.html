@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>雪花飘落</title>
+    <style>
+    *{
+        margin:0;padding:0;
+    }
+    html,body{
+        width:100%;
+        height:100%;
+        overflow: hidden;
+        background-color: #ccc;
+    }
+    .screen{
+        position: relative;
+        width:100%;
+        height:100%;
+    }
+    .screen img{
+        position: absolute;
+        display: block;
+
+    }
+    </style>
+</head>
+<body>
+    <div class="screen">
+       <!--  <img src="image/iceFlower.png" alt=""> -->
+
+    </div>
+    <script>
+    var oScreen=document.querySelector(".screen");
+    var width=document.body.offsetWidth;
+    var height=document.body.offsetHeight;
+    console.log(width,height);
+    var Y_speed=3.5;
+    var X_speed=1.5;
+    var imgSrc=["image/iceFlower.png","image/images/iceFlower_1.png","image/images/iceFlower_2.png","image/images/iceFlower_3.png","image/images/iceFlower_4.png","image/images/iceFlower_5.png","image/images/iceFlower_6.png","image/images/iceFlower_7.png","image/images/iceFlower_8.png","image/images/iceFlower_9.png","image/images/iceFlower_10.png","image/images/iceFlower_11.png","image/images/iceFlower_12.png","image/images/iceFlower_13.png","image/images/iceFlower_14.png","image/images/iceFlower_15.png","image/images/iceFlower_16.png","image/images/iceFlower_17.png","image/images/iceFlower_19.png"];
+   /* var iceList=[];*/
+    //随机生成雪花
+    function addIce(){
+      var ice=document.createElement("img");
+      ice.src=imgSrc[Math.floor(Math.random()*imgSrc.length)];
+      ice.style["width"]=Math.random()*30+"px";
+      ice.style["top"]=-parseInt(ice.style["width"])+"px";
+      ice.style["left"]=Math.random()*width+"px";
+      var basicNum=parseInt(ice.style["width"])/30;
+      ice.style["filter"]="blur("+basicNum*1.1+"px)"+"  brightness("+basicNum*1000+100+"%)";
+      oScreen.appendChild(ice);
+    }
+    //雪花飘落
+    function iceFall(){
+        var iceAll=oScreen.querySelectorAll("img");
+        for(var i=0;i<iceAll.length;i++){
+            if(parseInt(iceAll[i].style["top"])>height){
+                oScreen.removeChild(iceAll[i]);
+                
+            }
+            else{
+                iceAll[i].style["top"]=getAttr(iceAll[i],"top")+Y_speed*Math.random()+"px";
+                iceAll[i].style["left"]=getAttr(iceAll[i],"left")+X_speed*Math.random()+-0.4+"px";
+            }
+        }
+    }
+
+    function getAttr(obj,attr){
+        return  parseInt(getComputedStyle(obj)[attr]?getComputedStyle(obj)[attr]:obj.currentStyle[attr]);
+    }
+    window.onload=function(){
+        var t=0;
+        window.setInterval(function(){
+            if(t%10==1){
+                addIce();
+            }  
+            t++;          
+            iceFall();
+        },15);
+
+   } 
+    </script>
+</body>
+</html>

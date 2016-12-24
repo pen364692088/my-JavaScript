@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+    .ball{
+        position: relative;
+        width:50px;
+        height:50px;
+        background-color: #0c0;
+        border-radius:50%;
+    }
+    *{
+        margin:0;padding:0;
+    }
+    </style>
+</head>
+<body>
+    <div class="ball"></div>
+    <script>
+    var mousePos=[0,0];
+    var keyonOff=0;
+    var oBall=document.querySelector(".ball");
+
+    oBall.onmousedown=function(event){
+        keyonOff=1;
+        clearInterval(oBall.timer);
+        oBall.timer=setInterval(function(){
+            if(keyonOff){
+                oBall.style["top"]=mousePos[1]-25+"px";
+                oBall.style["left"]=mousePos[0]-25+"px";
+            }            
+        },30);
+       
+    }
+    window.onmouseup=function(){
+        keyonOff=0;
+        clearInterval(oBall.timer);
+    }
+    window.onmousemove=function(event){
+        mousePos[0]=event.pageX;
+        mousePos[1]=event.pageY;
+    }
+
+    </script>
+</body>
+</html>

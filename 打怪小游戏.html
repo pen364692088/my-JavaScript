@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>打怪小游戏</title>
+    <style>
+    .player{
+        width:50px;
+        height:50px;
+        background-color: #0c0;
+        position: absolute;
+        top:calc(50% - 25px);
+        left:calc(50% - 25px);
+        outline: none;
+        z-index:5;
+        border-radius: 5px;
+        filter:blur(2px) brightness(90%);
+    }
+    .ball{
+        position: absolute;
+        width:15px;
+        height:15px;
+        top:0;
+        left:0;
+        background-color: red;
+        border-radius:50%;
+        z-index:3;
+        filter:blur(3px);
+    }
+    *{
+        margin:0;padding:0;
+    }
+    html,body{
+        width:100%;
+        height:100%;
+        overflow: hidden;
+    }
+    body{
+        background-image:url(image/outspace.jpg);
+        background-size:cover;
+    }
+    .enemy{
+        width:40px;
+        height:40px;
+        background-color: orange;
+        position: absolute;
+        border-radius:50%;
+        z-index:4;
+        filter:blur(4px);
+    }
+    p{  width:150px;
+        height:50px;
+        line-height: 50px;
+        display: block;
+        position: absolute;
+        font-size: 24px;
+        left:50px;
+        top:50px;
+        border:1px solid #fff;
+        border-radius: 10px;
+        text-indent:5px;
+        color:#fff;
+    }
+    </style>
+</head>
+<body>
+    <div tabindex="1" class="player"></div>
+    <p>战绩 : <span>0</span></p>
+    <script>
+    var oDiv=document.querySelector(".player");
+    oDiv.focus();
+    var oDivH=parseInt(getStyle(oDiv,"height"));
+    var oDivW=parseInt(getStyle(oDiv,"width"));
+    var gradeNum=document.querySelector("span");
+    var windowWidth=window.innerWidth;
+    var windowHeight=window.innerHeight;
+    var music=document.getElementsByTagName("audio");
+    console.log(windowHeight,windowWidth);
+    oDiv.sound="music/die.wav";
+    oDiv.moveSound="music/playerMove.wav";
+    var grade=0;
+    oDiv.keyList=[];
+    var sortKeyList=[];
+    var enemyList=[];
+    var sideIndex={
+        "37":1,
+        "38":2,
+        "39":3,
+        "40":4,
+        "37,38":5,
+        "37,40":6,
+        "38,39":7,
+        "39,40":8
+
+    }
+    var ballList=[];
+
+    oDiv.addEventListener("keydown",function(){
+        move(event,oDiv,3);
+     /*   seeKey(event);*/
+    }
+        ,false);
+/*   oDiv.addEventListener("keydown",function(){
+        move(event,oDiv,"timer_2");
+    },false);*/
+    oDiv.addEventListener("keyup",function(){
+        clearTimer(event,oDiv);
+      /*detachKey(event);*/
+    },false); 
+
+    /*function seeKey(ev){
+        var ev=ev||event;
+        console.log(ev.keyCode);
+    }
+    function detachKey(ev){
+        var ev=ev||event;
+        console.log(ev.key);
+    }*/
+    function updataGrade(){
+        gradeNum.innerText=grade;
+    }
+    function move(ev,obj,speed){
+        var event=ev||window.event;
+        /*console.log(ev.keyCode);*/
+        clearInterval(obj.timer);     
+        obj.keyList.push(ev.keyCode);
+        obj.keyList.sort();
+        sortKeyList=[];
+        var num_1=null;
+        
+        for(var i=0;i<obj.keyList.length;i++){
+            if(obj.keyList[i]!=num_1){
+                sortKeyList.push(obj.keyList[i]);
+                num_1=obj.keyList[i];
+            }else{
+                continue;
+         }
+        }
+        obj.keyList=sortKeyList;
+       /* console.log(obj.keyList);*/
+        obj.timer=setInterval(function(){
+            for(var i=0;i<sortKeyList.length;i++){
+             switch(sortKeyList[i]){
+                    case 37://clearInterval(oDiv.timer); 
+                    oDiv.style.left=oDiv.offsetLeft-speed+"px";
+                    /*console.log("左");*/
+                        break;
+                    case 38://clearInterval(oDiv.timer);
+                     oDiv.style.top=oDiv.offsetTop-speed+"px";
+                        break;
+                    case 39://clearInterval(oDiv.timer);
+                     oDiv.style.left=oDiv.offsetLeft+speed+"px";
+                     /*console.log("右");*/
+                        break;
+                    case 40://clearInterval(oDiv.timer);
+                     oDiv.style.top=oDiv.offsetTop+speed+"px";
+                        break; 
+                    case 17:sortKeyList.splice(i,1);
+                            if(sortKeyList.length){
+                                creatBall(sideIndex[sortKeyList.toString()]);
+                            }                            
+                            break;    
+                    default:/*console.log(event.keyCode);*/
+                }
+            }
+            
+        },14);
+     }
+    function clearTimer(event,obj){
+        var reset=0;
+        for(var i=0;i<sortKeyList.length;i++){
+            if(event.keyCode==sortKeyList[i]){
+                sortKeyList.splice(i,1);
+
+            }
+        }
+        if(!sortKeyList.length){
+            clearInterval(obj.timer);
+        }
+            
+            /*console.log(arguments[i]);*/
+      
+        /*clearInterval(oDiv.timer);
+        clearInterval(oDiv.timer_2);*/
+        
+    }
+    /*var obj=new Object();
+    function addsomething(obj){
+        obj=1;
+    }
+    function printf(attr){
+        console.log(attr);
+    }
+    addsomething(obj.timer);
+    printf(obj.timer);*/
+    function playSound(src,vol=1){
+            var audio=document.createElement("audio");
+            audio.src=src;
+            audio.volume=vol;
+            audio.play();
+            setTimeout(function(){
+                audio.remove();
+            },3000);
+        }
+
+    /*function Brighter(obj,attr,num){
+        clearInterval(obj.changeTimer);
+        var begin=100;
+        var speed=10;
+        var get=0;
+        obj.changeTimer=setInterval(function(){           
+            if(speed>=num&&get==1){
+                speed=num;
+                get=1;
+                if(speed<=0){
+                    speed=0;
+                    obj.style[attr]="blur(2px) brightness("+begin+speed+"%)";
+                    clearInterval(obj.changeTimer);
+                }else{
+                    obj.style[attr]="blur(2px) brightness("+begin+speed+"%)";
+                    speed=speed/2;
+                }
+            }else{
+                speed*=2;
+                obj.style[attr]="blur(2px) brightness("+begin+speed+"%)";
+            }
+        
+        },30);
+    }*/
+    function creatBall(num){
+        if(!num){
+            return;
+        }
+        clearTimeout( oDiv.brightTimer);
+        oDiv.style.filter="blur(2px) brightness(100%)";
+        oDiv.brightTimer=setTimeout(function(){
+            oDiv.style.filter="blur(2px) brightness(90%)";
+        },600);
+        var ball=document.createElement("div");
+        ball.className="ball";
+        ball.shutSound="music/shut.wav";
+        ball.shut=playSound(ball.shutSound);
+        switch(num){
+            case 1:ball.style.top=getStyle(oDiv,"top")+oDivH/2+"px";
+                    ball.style.left=getStyle(oDiv,"left")-oDivW/2+"px";
+                    break;
+            case 2:ball.style.top=getStyle(oDiv,"top")+"px";
+                    ball.style.left=getStyle(oDiv,"left")+oDivW/2+"px";
+                    break;
+            case 3:ball.style.top=getStyle(oDiv,"top")+oDivH/2+"px";
+                    ball.style.left=getStyle(oDiv,"left")+oDivW+"px";
+                    break;
+            case 4:ball.style.top=getStyle(oDiv,"top")+oDivH+"px";
+                    ball.style.left=getStyle(oDiv,"left")+oDivW/2+"px";
+                    break;
+            case 5:ball.style.top=getStyle(oDiv,"top")+"px";
+                    ball.style.left=getStyle(oDiv,"left")+"px";
+                    break;
+            case 6:ball.style.top=getStyle(oDiv,"top")+oDivH+"px";
+                    ball.style.left=getStyle(oDiv,"left")+"px";
+                    break;
+            case 7:ball.style.top=getStyle(oDiv,"top")+"px";
+                    ball.style.left=getStyle(oDiv,"left")+oDivW+"px";
+                    break;
+            case 8:ball.style.top=getStyle(oDiv,"top")+oDivH+"px";
+                    ball.style.left=getStyle(oDiv,"left")+oDivW+"px";
+                    break;               
+        }
+        
+       /* console.log(ball);*/
+        ballMove(ball,num);
+        document.body.appendChild(ball);
+        ballList.push(ball);
+        /*console.log(ball);*/
+    }
+    function ballMove(obj,num,speed=6){
+        // var nowPos=[getStyle(oDiv,"left"),getStyle(oDiv,"top")];
+        
+        /*console.log(num);*/
+        obj.timer=setInterval(function(){
+           /* console.log(obj.style.left);*/
+            switch(num){
+                case 1:
+                    obj.style.left=getStyle(obj,"left")-speed+"px";
+                    /*console.log("左");*/
+                        break;
+                case 2:
+                     obj.style.top=getStyle(obj,"top")-speed+"px";
+                        break;
+                case 3:
+                     obj.style.left=getStyle(obj,"left")+speed+"px";
+                     /*console.log("右");*/
+                        break;
+                case 4:
+                     obj.style.top=getStyle(obj,"top")+speed+"px";
+                        break; 
+                case 5:
+                    obj.style.left=getStyle(obj,"left")-speed+"px";
+                    obj.style.top=getStyle(obj,"top")-speed+"px";
+                        break;  
+                case 6:
+                    obj.style.left=getStyle(obj,"left")-speed+"px";
+                     obj.style.top=getStyle(obj,"top")+speed+"px";
+                        break;    
+                case 7:
+                    obj.style.top=getStyle(obj,"top")-speed+"px";
+                    obj.style.left=getStyle(obj,"left")+speed+"px";
+                        break;  
+                case 8:
+                    obj.style.left=getStyle(obj,"left")+speed+"px";
+                    obj.style.top=getStyle(obj,"top")+speed+"px";
+                        break;  
+
+                }
+            if(seeBall(obj)){
+                obj.remove();
+                ballList.splice(getIndex(ballList,obj),1);
+                clearInterval(obj.timer);
+            }   
+        },15);
+    }
+    function getStyle(obj,attr){
+            return obj?parseInt(getComputedStyle(obj)[attr]?getComputedStyle(obj)[attr]:obj.currentStyle[attr]):false;
+ 
+        
+    }
+    function seeBall(obj){
+        if(getStyle(obj,"left")<0||getStyle(obj,"left")>windowWidth||getStyle(obj,"top")<0||getStyle(obj,"top")>windowHeight){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function creatEnemy(pos,speed=4){
+        var enemy=document.createElement("div");
+        enemy.className="enemy";
+        enemy.sound="music/kill.wav";
+        enemy.style.left=pos[0]+"px";
+        enemy.style.top=pos[1]+"px";
+        enemy.speed=speed;
+        enemyList.push(enemy);
+        enemy.searchPlayer=function(){
+            if(oDiv){
+                    var _this=this;
+                    if(_this){
+                        _this.timer=setInterval(function(){
+                       /* console.log(1);*/
+                    var playerPos=[getStyle(oDiv,"left"),getStyle(oDiv,"top")];
+                    _this.move(playerPos);
+                    _this.goDie();
+                    playerGoDiv();
+                       /* _this.remove();*/
+                    
+                   /* console.log(playerPos);*/
+                   /* console.log(playerPos);*/
+                    },50);
+                }
+            }
+                
+                
+        }
+        enemy.move=function(direction,speed=5){
+            var _this=this;
+            var  distanceX=getStyle(_this,"left")-direction[0];
+            var  distanceY=getStyle(_this,"top")-direction[1];
+            var sin=distanceX/Math.pow(distanceX*distanceX+distanceY*distanceY,.5);
+            var cos=Math.pow(1-sin*sin,.5);
+            cos=distanceY>0?-cos:cos;
+            sin=sin?sin:0;
+            cos=cos?cos:0;
+           /* console.log(sin,cos);*/
+            _this.style.left=getStyle(_this,"left")-speed*sin+"px";
+            _this.style.top=getStyle(_this,"top")+speed*cos+"px";
+            
+        }
+        enemy.goDie=function(){
+            if(this){
+                    var _this=this;
+                    var x=getStyle(_this,"left");
+                    var y=getStyle(_this,"top");
+                    var enemyWidth=getStyle(_this,"width");
+                    var enemyHeight=getStyle(_this,"height");
+                    if(ballList.length){
+                        /*console.log(ballList);*/
+                        for(var i=0;i<ballList.length;i++){
+                            var ballX=getStyle(ballList[i],"left");
+                            var ballY=getStyle(ballList[i],"top");
+
+
+                            /*console.log(Math.abs(x-ballX),Math.abs(y-ballY));*/
+                        if((Math.abs(x-ballX)<=enemyWidth)&&(Math.abs(y-ballY)<=enemyHeight)){
+                                var killBall=ballList[i];                    
+                                enemyList.splice(getIndex(enemyList,_this),1);
+                                clearInterval(killBall.timer);
+                                ballList.splice(i,1);                    
+                                clearInterval(_this.timer);  
+                                playSound(_this.sound,0.6);                  
+                                shake(_this,"top",1);
+                                killBall.remove();
+                                /*console.log("清除一个");*/
+                                grade++;
+                                updataGrade();
+                                return true;
+                                }
+                        }
+                        
+                    }else{
+                        return false;
+                    }
+                    
+            }
+            
+            
+        }
+        enemy.searchPlayer();
+        document.body.appendChild(enemy);
+    }
+    function getIndex(list,obj){
+        for(var i=0;i<list.length;i++){
+            if(obj==list[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+    /*function monster(pos,speed){
+        this.className="enemy";
+        this.style.left=pos[0];
+        this.style.top=pos[1];
+        this.speed=speed;
+    }
+    monster.prototype={
+        'searchPlayer':function(){
+
+        }
+    }*/
+    /*creatEnemy([0,0],5);*/
+    var timer=null;
+    timer=setInterval(function(){
+            var pos=[[Math.random()*windowWidth,0],[Math.random()*windowWidth,windowHeight],[0,Math.random()*windowHeight],[windowWidth,Math.random()*windowHeight]];
+            if(enemyList.length<grade/2+3){
+                creatEnemy(pos[Math.floor(Math.random()*pos.length)],4);
+            }
+            
+
+    },1500);
+
+    function shake(obj,direction,type=0){
+        var shakeList=[-10,10,-8,8,-5,5,-3,3,0];
+        var i=0;
+        var posBefore=getStyle(obj,direction);
+        obj.shakeTimer=setInterval(function(){
+            if(i<shakeList.length){
+                obj.style[direction]=posBefore+shakeList[i]+"px";
+                i++;
+            }else{
+                clearInterval(obj.shakeTimer);
+                if(type){
+                    obj.remove();
+                }
+            }
+        },50);
+    }
+
+    function playerGoDiv(){
+        var playPos=[getStyle(oDiv,'left'),getStyle(oDiv,'top')];
+        var size=[getStyle(oDiv,'width'),getStyle(oDiv,'height')];
+        for(var i=0;i<enemyList.length;i++){
+            var enemyPos=[getStyle(enemyList[i],'left'),getStyle(enemyList[i],'top')];
+            if((Math.abs(playPos[0]-enemyPos[0])<size[0]*0.8)&&(Math.abs(playPos[1]-enemyPos[1])<size[1]*0.8)){
+                playSound(oDiv.sound);
+                alert("可怜的玩家 你被吃掉啦 !   "+"你消灭了"+grade+"个小恶魔");
+                init();
+                oDiv.blur();
+                oDiv.focus();
+                
+            }return true;
+        }
+        return false;
+    }
+
+    function init(){
+        clearList(ballList);
+        clearList(enemyList);
+        sortKeyList=[];
+        console.log(music);
+        clearList(music);
+        oDiv.style.top="calc(50% - 25px)";
+        oDiv.style.left="calc(50% - 25px)";
+        grade=0;
+        updataGrade();
+       
+
+    }
+    function clearList(list){
+        for(var i=0;i<list.length;i++){
+            var _this=list[i];
+            list.splice(i,1);
+            clearInterval(_this.timer);
+            i--;
+            _this.remove();
+        }
+        console.log("清除成功");
+    }
+    </script>
+
+</body>
+</html>

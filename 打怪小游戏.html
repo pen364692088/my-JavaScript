@@ -78,6 +78,9 @@
 <body>
     <div tabindex="1" class="player"></div>
     <p>战绩 : <span>0</span></p>
+    <audio src="music/die.wav"></audio>
+    <audio src="music/shut.wav"></audio>
+    <audio src="music/kill.wav"></audio>
     <script>
     var oDiv=document.querySelector(".player");
     oDiv.focus();
@@ -455,7 +458,7 @@
             }
             
 
-    },1500);
+    },1300);
 
     function shake(obj,direction,type=0){
         var shakeList=[-10,10,-8,8,-5,5,-3,3,0];

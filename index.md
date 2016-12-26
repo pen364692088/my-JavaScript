@@ -2,7 +2,7 @@
 
 * [Canvas时钟](Canvas时钟.html)  
 * [打怪小游戏](打怪小游戏.html)  
-* [JS拖拽](JS拖拽.htmll)  
+* [JS拖拽](JS拖拽.html)  
 * [雪花飘落](雪花飘落.html)  
 * [音乐唱片](音乐唱片.html)  
 * [播放器列表](播放器列表.html)  

@@ -1,0 +1,16 @@
+extends layout
+
+block login    
+    .login
+        p 游客 请登录
+        form.loginForm(action='/login')
+          label(for='userName') 用户名
+            input#userName(type='text' name='userName' )
+          label(for='password') 密码
+            input#password(type='password' name='password')
+          input#remenber(type='checkbox')
+          label(for='remenber') 记住密码
+          input#thoughLogin(type='checkbox')
+          label(for='thoughLogin') 7天免登陆
+          input(type='submit', value='登陆')
+        a.registBtn(href='/regist') 注册    

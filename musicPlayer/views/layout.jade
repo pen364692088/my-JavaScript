@@ -1,0 +1,206 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    title 音乐盒
+    link(rel='stylesheet', href='style/common.css')
+    script(src='script/fontSizeSet.js')
+    script(src='script/iconfont.js')  
+    block css
+  body
+    .backBorder
+    .playPlate
+      .ctrl
+        .ctrlBall
+      .record
+        .recordBack
+          img(src='images/1.jpg', alt='')
+        .centerBall
+      ul.playerChose
+        li
+          svg.icon.font-choose.like(aria-hidden='true')
+            use(xlink:href='#icon-heart')
+        li
+          a.downloadSrc(href='music/1.mp3', download='')
+            svg.icon.font-choose.download(aria-hidden='true')
+              use(xlink:href='#icon-xiazai')
+        li.musicSwitch
+          svg.icon.font-choose.last(aria-hidden='true')
+            use(xlink:href='#icon-backicon1')
+        li.playLi
+          svg.icon.font-choose.playBtn(aria-hidden='true')
+            use(xlink:href='#icon-zanting')
+        li.musicSwitch
+          svg.icon.font-choose.next(aria-hidden='true')
+            use(xlink:href='#icon-backicon1')
+        li
+          svg.icon.font-choose.volume(aria-hidden='true')
+            use(xlink:href='#icon-report')
+          .volumeBar
+            .volumeBall
+            .volumeBarLine
+      audio(src='music/1.mp3')
+    .musicContent
+      .lyrics
+        img(src='images/1.jpg', alt='')
+        .lyrics-back
+          p
+            //- | 決めつけばかり 自惚れを着た
+            //- br
+            //- |                 一味强词夺理 总是妄自尊大
+            //- br
+            //- |                 チープなhokoriで 音荒げても
+            //- br
+            //- |                 尽管胡乱叫喊着 自己那廉价的自尊心
+            //- br
+            //- |                 棚に隠した 哀れな 恥に濡れた鏡の中
+            //- br
+            //- |                 不过藏身于隔板背后 被可悲之耻濡湿的镜中
+            //- br
+            //- |                 都合の傷だけひけらかして
+            //- br
+            //- |                 能炫耀的也只有显露的伤口
+            //- br
+            //- |                 手軽な強さで勝取る術を
+            //- br
+            //- |                 再如何磨练轻易取胜的技巧
+            //- br
+            //- |                 どれだけ磨いでも気はやつれる
+            //- br
+            //- |                 锐气早已受挫锋芒不再
+            //- br
+            //- |                 ふらついた思想通りだ
+            //- br
+            //- |                 正如内心犹豫不决的想法
+            //- br
+            //- |                 愛-same-CRIER 愛撫-save-LIAR
+            //- br
+            //- |                 爱依然在哭泣 安慰拯救谎言
+            //- br
+            //- |                 Eid-聖-Rising HELL
+            //- br
+            //- |                 神圣誓约铸造地狱
+            //- br
+            //- |                 愛してる Game世界のDay
+            //- br
+            //- |                 我深爱的这个世界 却成了游戏般的日常
+            //- br
+            //- |                 Don't-生-War Lie-兵士-War-World
+            //- br
+            //- |                 不要创造战争 谎言即战争世界的战士
+            //- br
+            //- |                 Eyes-Hate-War
+            //- br
+            //- |                 我讨厌眼前的战争
+            //- br
+            //- |                 A-Z Looser-Krankheit-Was IS das?
+            //- br
+            //- |                 A到Z 什么是失败者吗？
+            //- br
+            //- |                 Leben, was ist das?
+            //- br
+            //- |                 生活是什么？
+            //- br
+            //- |                 Signal, Siehst du das?
+            //- br
+            //- |                 信号，你看到了吗？
+            //- br
+            //- |                 Rade, die du nicht weisst
+            //- br
+            //- |                 先生，你不知道
+            //- br
+            //- |                 Aus eigenem Willen
+            //- br
+            //- |                 自己的自由意志
+            //- br
+            //- |                 Leben, was ist das?
+            //- br
+            //- |                 生活是什么？
+            //- br
+            //- |                 Signal, Siehst du das?
+            //- br
+            //- |                 信号，你看到了吗？
+            //- br
+            //- |                 Rade, die du nicht weisst
+            //- br
+            //- |                 先生，你不知道
+            //- br
+            //- |                 Sieh mit deinen Augen
+            //- br
+            //- |                 看你的眼睛
+            //- br
+      .playList
+        svg.icon.musicListPic(aria-hidden='true')
+          use(xlink:href='#icon-music')
+        p 播放列表
+        .playListWindow
+          ul.playListShow
+            li
+              audio(src='music/1.mp3', imgsrc='images/1.jpg')
+              p aLize
+              p 澤野弘之
+            li
+              audio(src='music/2.mp3', imgsrc='images/3.jpg')
+              p 雪の轍(高田詩緒 Remix)
+              p 茶太
+            li
+              audio(src='music/3.mp3', imgsrc='images/4.jpg')
+              p 东方萃梦想
+              p 东方
+            li
+              audio(src='music/4.mp3', imgsrc='images/2.jpg')
+              p Oblivious
+              p Kalafina
+            li
+              audio(src='music/Zone-Secret Base (未闻花名主题曲).mp3', imgsrc='images/5.jpg')
+              p Zone-Secret Base (未闻花名主题曲)
+              p Zone
+            li
+              audio(src='music/藤田麻衣子-蛍.mp3', imgsrc='images/6.jpg')
+              p 蛍
+              p 藤田麻衣子
+            li
+              audio(src='music/中西亮輔-有哉と美月.mp3', imgsrc='images/7.jpg')
+              p 有哉と美月
+              p 中西亮輔
+            li
+              audio(src='music/蚊香-樱花樱花想见你.mp3', imgsrc='images/8.jpg')
+              p 樱花樱花想见你
+              p 蚊香
+            li
+              audio(src='music/古川本舗&acane_madder-月光食堂.mp3', imgsrc='images/9.jpg')
+              p 月光食堂
+              p 古川本舗
+            li
+              audio(src='music/鬼束ちひろ-月光.mp3', imgsrc='images/10.jpg')
+              p 月光
+              p 鬼束ちひろ
+            li
+              audio(src='music/原田ひとみ&茅野愛衣&小倉唯-回レ! 雪月花.mp3', imgsrc='images/11.jpg')
+              p 回レ! 雪月花
+              p 原田ひとみ&茅野愛衣&小倉唯
+        .musicListCtrl
+          ul
+            li
+              img.heartLikeImg(src='images/heart-icon.png', alt='')
+              svg.icon.musicListCtrlIcon.heartLike(aria-hidden='true')
+                use(xlink:href='#icon-like')
+            li
+              svg.icon.musicListCtrlIcon.loopIcon(aria-hidden='true')
+                use(xlink:href='#icon-duihuan')
+            li
+              svg.icon.musicListCtrlIcon.sendFile(aria-hidden='true')
+                use(xlink:href='#icon-shangchuan')
+            li
+              svg.icon.musicListCtrlIcon.deleteIcon(aria-hidden='true')
+                use(xlink:href='#icon-trash')
+    .musicShow
+      canvas(style='width:300px;height:300px')
+    .user
+      svg.icon.userShow(aria-hidden='true')
+        use(xlink:href='#icon-backicon1')
+      block login
+    script(src='script/audioAPI.js')
+    script(src='script/main.js')
+    block js

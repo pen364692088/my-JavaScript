@@ -1,0 +1,32 @@
+extends layout
+
+block login
+  .userMessage
+    img(src='images/monster.jpg', alt='')
+    p #{data.userName} 欢迎回来
+  ul.userOption
+    li
+      p.searchBtn 搜索歌曲
+      input.searchInput(type='text', placeholder='请输入歌曲名')
+    li
+      p.sendFileUp 上传歌曲
+      form.sendFileForm(action='/send', methold='get')
+        .chooseFildUpInput
+          | 选择音乐
+          input(type='file')
+        .sendFildUpInput
+          | 上传
+          input(type='sumbit')
+    li
+      p.changeStyleColor 更换主题色
+      ul.styleColor
+        li(style='background-color: #7AB900;')
+        li(style='background-color: #BCCEDC;')
+        li(style='background-color: #FF5500;')
+        li(style='background-color: #FFCD45;')
+    li
+      a(href="/") 注销
+block js
+  script.
+    var user=document.querySelector('.user');
+    user.className='user user-active';

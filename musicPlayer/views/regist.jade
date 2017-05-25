@@ -1,0 +1,15 @@
+extends layout
+
+block login    
+    .login
+        p 注册账户
+        form.loginForm(action='/registing')
+          label(for='userName') 用户名
+            input#userName(type='text' name='userName')
+          label(for='password') 密码
+            input#password(type='password' name='password')
+          input(type='submit', value='注册')
+block js
+  script.
+    var user=document.querySelector('.user');
+    user.className='user user-active';

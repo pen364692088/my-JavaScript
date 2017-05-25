@@ -1,0 +1,719 @@
+*{
+    margin:0;padding:0;
+}
+html,body{
+    min-width:1200px;
+    width:100%;    
+    height:100%; 
+    overflow: hidden; 
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;    
+}
+a{
+    text-decoration: none;
+}
+h1{
+  font-size:34px;
+}
+h2{
+  font-size:28px;
+}
+h3{
+  font-size:24px;
+}
+h4{
+  font-size:20px;
+}
+p{
+  font-size: 17px;
+}
+ul,li{
+  list-style:none;
+}
+
+.icon {
+  position: absolute;
+   display: block;
+   width: 50px; height: 50px;
+   vertical-align: -10px;
+   fill:currentColor;
+   overflow: hidden;
+   
+   z-index:5;
+}
+.backBorder{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    width:calc(100%-15px);
+    height:calc(100%-15px);
+    border:15px solid;
+    border-color:#4ce1ab;
+    box-shadow: 0 0 15px #aaa inset;
+    z-index:-1;
+    transition:border-color 0.5s ease-in-out;
+}
+/* 唱片部分 */
+.playPlate{
+  position: relative;
+  margin:6px 0 0 6px;
+  width:420px;
+  height:95%;
+ /*  border:1px solid red; */
+  float:left;
+  margin-left: 40px;
+}
+.record{
+  position: relative;
+  width:350px;
+  height:350px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin:0 auto;
+  margin-top: 50px;
+  box-shadow: 0 0 10px #aaa;
+  transform:translateX(20px);
+}
+.recordBack{
+  width:300px;
+  height:300px;
+  background-color: #fff;
+  border:12px solid ;
+  border-color:#4ce1ab;
+  border-radius:50%;  
+  overflow:hidden;
+  box-shadow: 0 0 2px #ccc;
+  z-index:3;
+  transition:border-color 0.5s ease-in-out;
+}
+.record img{
+  position: absolute;
+  display: block;
+  width:300px;
+  top:0;
+  left:0;
+  box-shadow: 0 0 2px #ccc;
+  transform-origin:150px 150px;
+  animation:recordRotate infinite 13s linear ;
+  animation-play-state:paused;
+  z-index:2;
+}
+.recordImg-active{
+  animation-play-state:running!important;
+}
+@keyframes recordRotate{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+.centerBall,.recordBack{
+  position: absolute;
+  margin:auto;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+}
+.ctrl{
+  position: absolute;
+  top:50px;
+  left:35px;
+  width:30px;
+  height:260px;
+  z-index:3;
+  border-radius:0 0 10px 10px;
+  background-color: #78f2c5;
+  box-shadow: 0 0 5px #ccc;
+  transform-origin:5px 5px;
+  transform:rotate(0deg);
+  transition:transform 1s ease-in-out,background-color 0.45s ease-in-out;
+}
+.recordCtrl-active{
+  transform:rotate(-45deg);
+}
+.ctrlBall{
+  position:absolute;
+  width:50px;
+  height:50px;
+  background-color: #78f2c5;
+  border-radius:50%;
+  left:-12px;
+  top:-12px;
+  box-shadow: 0 -1px 5px  #ccc;
+  transition:background-color 0.45s ease-in-out;
+
+}
+
+.centerBall{
+  width:70px;
+  height:70px;
+  background-color: #fff;
+  border-radius:50%;
+  box-shadow: 0 0  6px #444 inset;
+  z-index:4;
+}
+.playerChose{
+  position: absolute;
+  width:100%;
+  height:10%;
+/*   border:1px solid red; */
+  top:460px;
+}
+.playerChose li{
+  position: relative;
+  display: block;
+  width:13%;
+  height:40px;
+  /* border:1px solid red; */
+  float:left;
+  line-height: 40px;
+}
+.font-choose{
+  width:100%;
+  height:40px;
+  position:absolute;
+  margin:auto;
+  left:0;right:0;
+  top:0;bottom:0;
+  color:#4ce1ab;
+  transition:height 0.7s ease-in-out,color 0.7s ease-in-out,color 0.45s ease-in-out;
+}
+.font-choose:hover{
+  height:50px;
+  color:#a5ffde;
+}
+.like:hover{
+  color:#ea5869;
+}
+.download,.volume{
+  color:#4ce1ab;
+}
+.download:hover{
+  color:#d659f1;
+}
+.volume:hover{
+  color:#8edb73;
+}
+.next{
+  transform:rotate(180deg);
+}
+.last,.next{
+  height:46px;
+}
+.last:hover,.next:hover{
+  height:55px;
+}
+.playBtn{
+  height:70px;
+  margin-top: -15%;
+}
+.playBtn:hover{
+  height:75px;
+  color:#3497dc;
+}
+.playLi{
+  width:20% !important;
+  height:100% !important;
+}
+.musicSwitch{
+  width:18% !important;
+}
+.volumeBar{
+  position:absolute;
+  width:30px;
+  height:0;
+  background-color: #fff;
+  box-shadow: 0 0 8px #aaa;
+  top:-95px;
+  left:10px;
+  opacity:0;
+  display:block;  
+  overflow:hidden;
+  transition:opacity .5s ease-in-out,width .5s ease-in-out,height .5s ease-in-out;
+}
+.volumeBar-acitve{
+ /*  display: block !important; */
+  opacity: 1 !important;
+  height:90px;
+}
+.volumeBall{
+  position: absolute;
+  width:15px;
+  height:15px;
+  margin:auto;
+  margin-top: 5px;
+  right:0;left:0;
+  border-radius:50%;
+  background-color: #fff;
+  box-shadow: 0 0 4px #666;
+  z-index:3;
+}
+.volumeBarLine{
+  position: absolute;
+  width:7px;
+  height:75px;
+  margin:auto;
+  right:0;left:0;
+  top:10px;
+  z-index:1;
+  background-color: #4ce1ab;
+  border-radius:3px;
+  transition:background-color 0.45s ease-in-out;
+}
+/* 歌词和列表部分 */
+.musicContent{
+  position:relative;
+  margin:30px 0 0 30px;
+  width:550px;
+  height:95%;
+  /* border:1px solid red; */
+  float:left;
+}
+/* 歌词 */
+.lyrics{
+  position: relative;
+  width:76%;
+  height:60%;
+  margin:auto;
+  margin-top: 10px;
+  overflow: hidden;
+  box-shadow:0 0 10px #aaa;
+  
+}
+.lyrics img{
+  position: absolute;
+  width:100%;
+  height:100%;
+  margin:auto;
+  left:0;right:0;
+  top:0;bottom:0;
+  filter:blur(3px);
+  transition:filter 0.7s ease-in-out;
+
+}
+.lyrics:hover img{
+  filter:blur(1px);
+}
+.lyrics:hover .lyrics-back{
+  background-color: rgba(0,0,0,0.28);
+}
+.lyrics-back{
+  position: absolute;
+  width:95%;
+  height:95%;
+  margin:auto;
+  top:0;left:0;right:0;bottom:0;
+  background-color: rgba(0,0,0,0.5);
+  opacity:1;
+  overflow:hidden;
+  transition:background-color 0.7s ease-in-out;
+}
+.lyrics p{
+  position:relative;  
+  width:90%;
+  margin:auto;
+  margin-top:200px;
+  line-height:40px;
+  color:#fff;
+  z-index: 3;
+  text-align: center;
+}
+/* 列表 */
+.playList{
+  position: relative;
+  width:80%;
+  height:35%;
+  /* border:1px solid red; */
+  margin:0 auto;
+}
+.playList>p{
+  position: relative;
+  text-align:center;
+  width:100%;
+  height:40px;
+  line-height:40px;
+  font-size: 20px;
+  border-bottom: 3px dashed #ccc;
+}
+.musicListPic{
+  /* border:1px solid red; */
+  width:40px;
+  height:40px;
+  color:#1aadcc;
+  margin-left:-40px;
+  margin-top: 6px;
+  transform-origin:center;
+  transform:rotate(-20deg);
+  transition:transform 0.3s ease-in-out,color .45s ease-in-out;
+}
+.musicListPic:hover{
+  transform:rotate(20deg) ;
+}
+.playListWindow{
+  position:relative;
+  width:100%;
+  height:64%;
+  overflow: hidden;
+  z-index:1;
+}
+.playListShow{
+  position: absolute;
+  width:100%;
+  top:0;
+}
+.playListShow li{
+  position: relative;
+  width:100%;
+  text-align: center;
+  height:40px;
+  line-height: 40px;
+  border-bottom:1px solid #ccc; 
+  z-index:1;
+}
+.playListShow li p{
+  font-size: 15px;
+  color:#444;
+  
+}
+.playListShow li p:nth-of-type(1){
+  float:left;
+}
+.playListShow li p:nth-of-type(2){
+  float:right;
+}
+.playListShow li:after{
+  content:"";
+  display: block;
+  clear:both;
+}
+.musicListCtrl{
+  position: absolute;
+  bottom:0;
+  width:100%;
+  height:46px;
+  background-color: #444;
+  z-index:3;
+  border-radius:0 0 6px 6px;
+}
+.heartLikeImg{
+  position: absolute;
+  width:20px;
+  margin:auto;
+  left:0;right:0;
+  top:-5px;
+  opacity:0;
+  transition:opacity .4s ease-in-out,top .6s ease-in-out;
+}
+.heartLikeImg-active{
+  top:-20px;
+  opacity:1;
+}
+.musicListCtrl ul{
+  position: relative;
+  width:100%;
+  height:100%;
+}
+.musicListCtrl ul li{
+  position: relative;
+  width:24%;
+  height:100%;
+  float:left;
+  text-align: center;
+}
+.musicListCtrlIcon{
+  position: absolute;
+  height:70%;
+  margin:auto;
+  left:0 ;right:0;
+  top:0;bottom:0;
+  color:#fff;
+
+}
+.loopIcon{
+  transform-origin:center;
+  transition:transform 1.2s ease-in-out;
+}
+.loopIcon:hover{
+  transform:rotate(180deg);
+
+}
+.sendFile{
+  transition:transform 1s ease-in-out 0.2s;
+}
+.sendFile:hover{
+  transform:scale(1.2);
+}
+.deleteIcon{
+  transform-origin:center;
+}
+.deleteIcon:hover{
+  animation:shake 2s infinite linear;
+}
+@keyframes shake{
+  0%{
+    transform:rotate(0deg);
+  }
+  25%{
+    transform:rotate(15deg);
+  }
+  50%{
+    transform:rotate(0deg);
+  }
+  75%{
+    transform:rotate(-15deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+/* 频谱图 */
+.musicShow{
+  position: relative;
+  margin-top: 140px;
+  width:305px;
+  height:260px;
+  float:left;
+  border:7px solid ; 
+  border-color:#4ce1ab;
+  box-shadow: 0 0 10px #888 ;
+  border-radius: 10px;
+  transition:border-color 0.45s ease-in-out;
+}
+.musicShow canvas{
+  position:absolute;
+  top:-40px;
+}
+/* 用户菜单部分 */
+.user{
+  margin:13px 13px 0 0;
+  width:350px;
+  height:96%;
+  position:absolute;
+  right:-310px;
+  /* border:1px solid red; */
+  background-color: #4ce1ab;
+  box-shadow: -2.5px 0 3px #ccc;
+  text-align: center;
+  z-index:5;
+  transition:right 0.6s ease-in-out,background-color 0.45s ease-in-out;
+}
+.userShow{
+    width:50px;
+    height:50px;
+    position:absolute;
+    font-size: 45px;
+    color:#fff;
+    margin:auto;
+    top:0;bottom:0;
+    left:0;
+    transform:rotate(0deg);
+    transition:transform .4s ease-in-out,opacity .4s ease-in-out;
+}
+.userShow:hover{
+    opacity:0.8;
+}
+.userMessage{
+  position: relative;
+  width:240px;
+  height:240px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin:0 auto;
+  margin-top: 15px;
+  box-shadow: 0 0 10px #ccc;
+
+
+}
+.userMessage img{
+  position: absolute;
+  width:230px;
+  height:230px;
+  margin:auto;
+  left:0;right:0;
+  top:0;bottom:0;
+  display: block;
+  border-radius:50%;
+  box-shadow: 0 0 6px #ccc;
+}
+.userMessage p{
+  position: absolute;
+  top:260px;
+  width:200px;
+  margin:auto;
+  left:0;right:0;
+  color:#fff;
+  font-size: 26px;
+  text-shadow:0 0 5px #888;
+}
+.user li{
+  text-align: center;
+  font-size:26px;
+}
+.searchInput{
+  display:block;
+  width:160px;
+  height:0px;
+  border:0.00px solid #ccc;
+  outline: none;
+  margin:auto;
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 15px;
+  text-indent:5px;
+  color:#666;
+  transition:height 0.5s ease-in-out;
+}
+.searchInput-active{
+  height:35px;
+}
+.userOption{
+  position: relative;
+  width:100%;
+  height:50%;
+/*   border:1px solid red; */
+  text-align: center;
+  margin-top: 60px;
+}
+.userOption li{
+  position: relative;
+  font-size: 26px;
+  width:80%;
+  margin:0 auto;
+  color:#fff;
+  text-shadow:0 0 6px #888;
+  margin-top:15px;
+}
+.userOption li p{
+  font-size: 26px;
+  height:35px;
+}
+.userOption a{
+  color:#fff;
+}
+.sendFileForm{
+  position:relative;
+  height:0px;
+  width:250px;
+  margin-top: 20px;
+  margin:0 auto;
+  overflow: hidden;
+  transition:height 0.45s ease-in-out;
+}
+.sendFileForm-active{
+  height:35px;
+}
+.chooseFildUpInput,.sendFildUpInput{
+  position:absolute;
+  display:block;
+  width:100px;
+  height:30px;
+  line-height: 30px;
+  background-color: #fff;
+  border-radius:5px;
+  text-align: center;
+  color:#888;
+  font-size: 16px;
+  text-shadow:0 0 0 #fff;
+  
+}
+.chooseFildUpInput{
+  left:10px;
+}
+.sendFildUpInput{
+  right:10px;
+}
+.chooseFildUpInput input,.sendFildUpInput input{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100px;
+  height:30px;
+  opacity: 0;
+}
+.styleColor{
+  position: relative;
+  margin:auto;
+  width:250px;
+  height:0;
+  overflow: hidden;
+  transition:height 0.45s ease-in-out;
+
+}
+.styleColor-active{
+  height:70px;
+}
+.styleColor li{
+  width:40px;
+  height:40px;
+  float:left;
+  margin-left:20px; 
+  box-shadow: 0 0 3px #fff;
+  border-radius:5px;
+}
+.styleColor:after{
+  content:' ';
+  display:block;
+  clear:both;
+}
+/* 登陆画面 */
+.login{
+  position: relative;
+  width:100%;
+  height:100%;
+  font-size: 18px;
+  text-align: center;
+  color:#fff;
+}
+.login p:nth-of-type(1){
+    font-size: 26px;
+    color:#fff;
+    height:36px;
+    margin-top:80px;
+}
+.login  input[type='text'],.login  input[type='password'],.login  input[type='submit'],.registBtn{
+  width:200px;
+  height:30px;
+  outline: none;
+  display: block;
+  margin:auto;
+  border:none;
+  box-shadow: 0 0 5px #aaa inset;
+  text-indent:10px;
+  border-radius:7px;
+  margin-bottom: 10px;
+}
+.login  input[type='submit']{
+  background-color: #fff;
+  color:#4ce1ab;
+  font-size: 20px;
+  margin-top: 10px;
+  transition:background-color 0.4s ease-in-out,color 0.4s ease-in-out;
+}
+.login label[for='userName'], .login label[for='password']{
+  display: block;
+ 
+  width:200px;
+  margin:auto;
+   margin-top:10px;
+}
+ 
+.registBtn{
+  
+  line-height: 30px;
+  background-color: #fff;
+  color:#4ce1ab;
+  text-decoration:none;
+  transition:background-color 0.4s ease-in-out,color 0.4s ease-in-out;
+} 
+.registBtn:hover,.login  input[type='submit']:hover{
+  background-color: #ccc;
+  color:#fff;
+}
+.user-active{
+  right:-30px;
+}
